@@ -1,0 +1,299 @@
+
+body, html, h1, h2, h3, h4, h5, h6, ul, ol, li, dl, dt, dd, header, menu, section, p, input, td, th, ins {
+    margin: 0;
+    padding: 0;
+}
+body, textarea, select, input, button {
+    color: #333;
+    font-family: Arial,Helvetica,sans-serif;
+    font-size: 12px;
+}
+section, header, main, article, aside, ins {
+    display: block;
+}
+html, body {
+    border: 0 none;
+    height: 100%;
+    width: 100%;
+}
+h1, h2, h3, h4, h5, h6 {
+    font-size: 100%;
+}
+em, i {
+    font-size: inherit;
+    font-style: normal;
+    text-align: left;
+}
+html, body, img, iframe {
+    border: 0 none;
+}
+textarea {
+    overflow: auto;
+    resize: none;
+}
+input:focus, textarea:focus, span:focus, a:focus, button:focus {
+    outline: medium none;
+}
+li, s {
+    list-style: outside none none;
+}
+img, .txt {
+    border: 0 none;
+}
+mark {
+    background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
+}
+[hidefocus] {
+    outline: medium none;
+}
+a {
+    color: #333;
+    text-decoration: none;
+}
+a:hover {
+    color: #333;
+    text-decoration: underline;
+}
+a, a *, .f-hand, .f-hand * {
+    cursor: pointer;
+}
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    table-layout: fixed;
+}
+.f-cb::after {
+    clear: both;
+    content: ".";
+    display: block;
+    height: 0;
+    visibility: hidden;
+}
+.f-cb {
+}
+.f-alpha {
+}
+.f-ib {
+    display: inline-block;
+}
+.f-img, .f-blk {
+    display: block;
+    height: 100%;
+    width: 100%;
+}
+.f-pr {
+    position: relative;
+}
+.f-pa {
+    position: absolute;
+}
+.f-link {
+    display: block;
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+}
+.f-hide, .js-hide {
+    display: none !important;
+}
+.f-vhide, .js-vhide {
+    visibility: hidden;
+}
+.f-oh {
+    overflow: hidden;
+}
+.f-fl {
+    float: left;
+}
+.f-fr {
+    float: right;
+}
+.f-sep {
+    margin-left: 5px;
+    margin-right: 5px;
+}
+.f-ff0 {
+    font-family: Arial,Helvetica,sans-serif;
+}
+.f-ff1 {
+    font-family: simsun,宋体;
+}
+.f-ff2 {
+    font-family: "Microsoft Yahei",Arial,Helvetica,sans-serif;
+}
+.f-ff3 {
+    font-family: Georgia,"Times New Roman",Times,serif;
+}
+.f-fs0 {
+    font-size: 12px;
+}
+.f-fs1 {
+    font-size: 14px;
+}
+.f-fs2 {
+    font-size: 16px;
+}
+.f-fs3 {
+    font-size: 18px;
+}
+.f-fs4 {
+    font-size: 20px;
+}
+.f-fw0 {
+    font-weight: normal;
+}
+.f-fw1 {
+    font-weight: bold;
+}
+.f-tdu, .f-tdu:hover {
+    text-decoration: underline;
+}
+.f-tdn, .f-tdn:hover {
+    text-decoration: none;
+}
+.f-pre {
+    word-break: break-all;
+    word-wrap: break-word;
+}
+.f-thide {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    word-wrap: normal;
+}
+.f-thide2 {
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.f-tdlt {
+    text-decoration: line-through;
+}
+.f-brk {
+    white-space: normal;
+    word-break: break-all;
+    word-wrap: break-word;
+}
+.f-nw {
+    white-space: nowrap;
+}
+.f-tid {
+    text-indent: -9999px;
+}
+.f-nobd {
+    border: medium none;
+}
+.f-tc {
+    text-align: center;
+}
+.f-vam, .f-vama * {
+    vertical-align: middle;
+}
+.f-rdi {
+    margin: -2px 0 0 -1px;
+    vertical-align: middle;
+}
+.f-hand {
+    cursor: pointer;
+}
+.f-curbig {
+    cursor: url("../img/timeline/big.cur"), auto;
+}
+.f-cursml {
+    cursor: url("../img/timeline/small.cur"), auto;
+}
+.f-curleft {
+    cursor: url("../img/timeline/frd_show_left.cur"), auto;
+}
+.f-curright {
+    cursor: url("../img/timeline/frd_show_right.cur"), auto;
+}
+.f-cd {
+    cursor: default;
+}
+.f-sltnone {
+    -moz-user-select: none;
+}
+.f-dft, .f-dft * {
+    cursor: default;
+}
+.f-blank {
+    background-image: url("../img/common/bg_blank.png");
+}
+.f-mgt5 {
+    margin-top: 5px;
+}
+.f-mgt10 {
+    margin-top: 10px;
+}
+.f-mgt20 {
+    margin-top: 20px;
+}
+.f-mgt30 {
+    margin-top: 30px;
+}
+.f-mgt40 {
+    margin-top: 40px;
+}
+.f-mgl10 {
+    margin-left: 10px;
+}
+.f-oys {
+    overflow-y: scroll;
+}
+.s-fc0, a.s-fc0:hover {
+    color: #000;
+}
+.s-fc1 {
+    color: #333;
+}
+a.s-fc1:hover {
+    color: #000;
+}
+.s-fc2, a.s-fc2:hover {
+    color: #d0d0d0;
+}
+.s-fc3, a.s-fc3:hover {
+    color: #666;
+}
+.s-fc4, a.s-fc4:hover {
+    color: #999;
+}
+.s-fc5, a.s-fc5:hover {
+    color: #555;
+}
+.s-fc6, a.s-fc6:hover {
+    color: #c20c0c;
+}
+.s-fc7, a.s-fc7:hover {
+    color: #0c73c2;
+}
+.s-fc8, a.s-fc8:hover {
+    color: #aeaeae;
+}
+.s-fc9 {
+    color: #bb2128;
+}
+.s-fc10 {
+    color: #d33a31;
+}
+.s-fc11 {
+    color: #c2c2c2;
+}
+a.s-fc11:hover {
+    color: #c2c2c2;
+}
+.s-fc12, a.s-fc12:hover {
+    color: #fff;
+}
+.s-fc13 {
+    color: #fe672e;
+}
+.s-fc14 {
+    color: #ccc;
+}
+.forupdatemerged {
+    color: #fff;
+    display: none;
+}
