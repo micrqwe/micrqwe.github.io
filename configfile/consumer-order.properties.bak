@@ -1,2 +1,0 @@
-server.port=8655
-spring.application.name=compute-consumer-order
