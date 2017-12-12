@@ -1,0 +1,13 @@
+.DS_Store
+.gradle
+build/
+classes/
+.idea
+*.iml
+*.ipr
+*.iws
+.project
+.settings
+.classpath
+ftp/target/
+java/target/
