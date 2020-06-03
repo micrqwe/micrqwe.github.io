@@ -21,8 +21,8 @@ install:
 before_script:
 script:
 after_script:
-- hexo g -d
-- cd public
+- hexo deploy
+- cd ./public
 - git init
 - git config user.name "micrqwe"
 - git config user.email "micrqwe@163.com"
