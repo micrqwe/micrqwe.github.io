@@ -10,8 +10,6 @@ branches:
   - hexo-master-build
 before_install:
 - export TZ='Asia/Shanghai'
-- openssl aes-256-cbc -K $encrypted_b273e0dd6399_key -iv $encrypted_b273e0dd6399_iv
-  -in id_rsa.enc -out ~/.ssh/id_rsa -d
 - npm install -g hexo-cli
 install:
 - npm install
