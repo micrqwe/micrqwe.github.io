@@ -7,7 +7,7 @@ cache:
   - node_modules
 branches:
   only:
-  - hexo-build
+  - hexo-master-build
 before_install:
 - export TZ='Asia/Shanghai'
 - openssl aes-256-cbc -K $encrypted_b273e0dd6399_key -iv $encrypted_b273e0dd6399_iv
@@ -23,11 +23,14 @@ install:
 
 before_script:
 script:
-after_success:
+after_script:
 - cd ./public
 - git init
+- git config user.name "micrqwe"
+- git config user.email "micrqwe@163.com"
 - git add --all .
 - git commit -m "Travis CI Auto Builder"
 # 这里的 REPO_TOKEN 即之前在 travis 项目的环境变量里添加的
-- git push --quiet --force https://$token@github.com/micrqwe/micrqwe.github.io.git
-  master
+- git push --quiet --force https://$token@github.com/micrqwe/micrqwe.github.io.git  master:master
+
+
