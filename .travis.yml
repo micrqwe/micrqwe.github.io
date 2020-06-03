@@ -17,12 +17,11 @@ install:
 - npm install hexo-generator-sitemap --save
 - npm install hexo-generator-baidu-sitemap --save
 - npm install hexo-renderer-jade hexo-renderer-stylus --save
-- npm install hexo-douban --save
 
 before_script:
 script:
-- hexo deploy
 after_script:
+- hexo g -d
 - cd public
 - git init
 - git config user.name "micrqwe"
@@ -31,5 +30,3 @@ after_script:
 - git commit --allow-empty -m "Travis CI Auto Builder"
 # 这里的 REPO_TOKEN 即之前在 travis 项目的环境变量里添加的
 - git push --quiet --force https://${token}@github.com/micrqwe/micrqwe.github.io.git  master:master
-
-
