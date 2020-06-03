@@ -23,16 +23,11 @@ install:
 
 before_script:
 script:
-after_script:
-- git config user.name "micrqwe"
-- git config user.email "micrqwe@163.com"
-- sed -i "s/github_token/${GITHUB_TOKEN}/g" ./_config.yml
-- cat ./_config.yml
-- hexo douban && hexo g -d
-- chmod 600 ~/.ssh/id_rsa
-- ssh travis@111.231.224.64 -o StrictHostKeyChecking=no 'cd ~/ && sh update_wf2311_com.sh'
-
 after_success:
-env:
-  global:
-    secure: d5f5127d8850023faed72a4130a97478b77846cb
+- cd ./public
+- git init
+- git add --all .
+- git commit -m "Travis CI Auto Builder"
+# 这里的 REPO_TOKEN 即之前在 travis 项目的环境变量里添加的
+- git push --quiet --force https://$token@github.com/micrqwe/micrqwe.github.io.git
+  master
