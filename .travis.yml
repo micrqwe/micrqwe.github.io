@@ -1,0 +1,38 @@
+language: node_js
+sudo: required
+node_js:
+- 7.9.0
+cache:
+  directories:
+  - node_modules
+branches:
+  only:
+  - hexo-build
+before_install:
+- export TZ='Asia/Shanghai'
+- openssl aes-256-cbc -K $encrypted_b273e0dd6399_key -iv $encrypted_b273e0dd6399_iv
+  -in id_rsa.enc -out ~/.ssh/id_rsa -d
+- npm install -g hexo-cli
+install:
+- npm install
+- npm install hexo-deployer-git --save
+- npm install hexo-generator-sitemap --save
+- npm install hexo-generator-baidu-sitemap --save
+- npm install hexo-renderer-jade hexo-renderer-stylus --save
+- npm install hexo-douban --save
+
+before_script:
+script:
+after_script:
+- git config user.name "micrqwe"
+- git config user.email "micrqwe@163.com"
+- sed -i "s/github_token/${GITHUB_TOKEN}/g" ./_config.yml
+- cat ./_config.yml
+- hexo douban && hexo g -d
+- chmod 600 ~/.ssh/id_rsa
+- ssh travis@111.231.224.64 -o StrictHostKeyChecking=no 'cd ~/ && sh update_wf2311_com.sh'
+
+after_success:
+env:
+  global:
+    secure: d5f5127d8850023faed72a4130a97478b77846cb
