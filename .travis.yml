@@ -21,7 +21,7 @@ install:
 
 before_script:
 script:
-- hexo g -d
+- hexo deploy
 after_script:
 - cd public
 - git init
