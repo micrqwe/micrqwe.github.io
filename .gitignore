@@ -11,3 +11,6 @@ classes/
 .classpath
 ftp/target/
 java/target/
+db.json
+node_modules/
+themes/
