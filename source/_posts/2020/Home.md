@@ -1,9 +1,3 @@
-id: 202006231110
-title: 快速连接
-date: 2020-06-23 11:10:08
-categories: Java
-tags: [home]
----------
 # 首页
 
 * 其他工具
@@ -88,22 +82,31 @@ tags: [home]
   * [iptables删除规则](iptables)
   * [fastdfs安装测试](fastdfs)
   * [shadowsocks安装](shadowsocks)
-
-* 数据库运维
-  
   * [oracle一些用到的语法总结](oracleSql)
   * [oracle sql development工具使用](oracleDevelopment)
   * [canal的同步使用](otterAndCanal)
+
+* 数据库
+
   * [mysql知识点](mysql知识点)
 
-* 技术管理
+* 算法学习
 
+  * [红黑树](红黑树)
+  * [B树B+树](https://zhuanlan.zhihu.com/p/27700617)
+
+* 技术管理
+  
   * [中型系统的技术知识](developismanager)
+  * [UML类图参考](http://www.uml.org.cn/oobject/201905073.asp)
 
 * 数据进阶(内容庞大。多是友情链接)
   
   * [倒排索引&正排索引](http://note.youdao.com/noteshare?id=e13f5f79e434f909f12744a16bc58f93)
-  * [reids第二版文章](https://www.kancloud.cn/kancloud/redisbook/63822)
+  * [redis第二版文章](https://www.kancloud.cn/kancloud/redisbook/63822)
+  * [Redis高级客户端Lettuce详解](https://juejin.im/post/5d8eb73ff265da5ba5329c66)
+  * [熟悉 TCP/IP 协议](https://juejin.im/post/5a069b6d51882509e5432656)
   * [elasticsearch和mongodb对比](https://app.yinxiang.com/fx/ba38d8c7-0083-4753-ac60-587996c51750)
+  * [elasticsearch搜索快速的原因](https://www.infoq.cn/article/database-timestamp-02/?utm_source=infoq&utm_medium=related_content_link&utm_campaign=relatedContent_articles_clk&tdsourcetag=s_pctim_aiomsg)
   * [rabbitmq精选讲解](https://www.jianshu.com/p/833119530699)
   * [java敏感词过滤实现](https://github.com/robert-bor/aho-corasick)
