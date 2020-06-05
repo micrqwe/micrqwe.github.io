@@ -94,7 +94,7 @@ tags: "快速访问"
   * [oracle sql development工具使用](/2020/06/23/2019/oracleDevelopment)
   * [canal的同步使用](/2020/06/23/2019/otterAndCanal)
   * [mysql知识点](/2020/06/23/2019/mysql知识点)
-  * [mysql-extra字段说明](/2020/06/05/2020/mysql-extra字段说明)
+  * [mysql-extra字段说明](/2020/06/05/2020/mysqlExplain)
 
 * 技术管理
 
