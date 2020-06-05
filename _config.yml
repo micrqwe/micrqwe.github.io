@@ -38,11 +38,12 @@ menu:
   archives: /archives
   categories: /categories
   tags: /tags
-  
-social:
-  GitHub: https://github.com/micrqwe
-  email: 'mailto:287507016@qq.com'
 
+social:
+  GitHub: 'https://github.com/micrqwe'
+  E-Mail: 'mailto:287507016@qq.com'
+  aliyun: 'https://code.aliyun.com/u/287507016'
+  Weibo: https://weibo.com/
 # Writing
 new_post_name: :title.md # File name of new posts
 default_layout: post
