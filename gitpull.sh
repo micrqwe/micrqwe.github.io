@@ -2,7 +2,7 @@
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 TIME="date +%Y-%m-%d.%H:%M:%S"
 # ////////////////////////////////////// aliyun
-cd micrqwe
+cd ../micrqwe
 rm -rf *
 cd ../micrqwe.github.io
 hexo clean
