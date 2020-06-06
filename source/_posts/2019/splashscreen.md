@@ -1,5 +1,6 @@
-title: 未分组
+title: android/cordova/splashscreen说明
 date: 2020-06-23 11:10:08
+tags: ["java开发"]
 ---------
 # 配置说明
 

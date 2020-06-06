@@ -1,5 +1,6 @@
-title: 未分组
+title: centos安装docker
 date: 2020-06-23 11:10:08
+tags: ["linux"]
 ---------
 # centos安装docker
 

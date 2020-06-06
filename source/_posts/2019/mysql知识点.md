@@ -1,6 +1,6 @@
-title: mysql
+title: mysql知识点
 date: 2020-06-23 11:10:08
-tags: "存储树知识"
+tags: ["mysql","tree"]
 ---------
 # mysql知识点
 

@@ -1,5 +1,6 @@
-title: 未分组
+title: android开发/微信开发/android调试
 date: 2020-06-23 11:10:08
+tags: ["java开发"]
 ---------
 # 无法安装软件
 

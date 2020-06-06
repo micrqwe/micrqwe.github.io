@@ -1,5 +1,6 @@
-title: 未分组
+title: mongo操作
 date: 2020-06-23 11:10:08
+tags: ["java开发工具"]
 ---------
 # mongodb使用总结
 

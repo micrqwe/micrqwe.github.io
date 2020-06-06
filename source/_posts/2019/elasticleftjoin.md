@@ -1,5 +1,6 @@
-title: 未分组
+title: es父子文档
 date: 2020-06-23 11:10:08
+tags: ["java开发"]
 ---------
 # es join
 ## 概念

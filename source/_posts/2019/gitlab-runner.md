@@ -1,5 +1,6 @@
-title: 未分组
+title: gitlab-runner配置使用
 date: 2020-06-23 11:10:08
+tags: ["java开发工具"]
 ---------
 # gitlab-runner是和gitlab紧密结合的构建工具，本篇文章使用docker进行构建(docker自己参考百度)
 

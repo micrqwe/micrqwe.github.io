@@ -1,5 +1,6 @@
-title: 未分组
+title: java使用jni调用本地
 date: 2020-06-23 11:10:08
+tags: ["java开发"]
 ---------
 # Java调用JNI
 

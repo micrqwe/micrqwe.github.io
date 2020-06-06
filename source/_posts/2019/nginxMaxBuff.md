@@ -1,5 +1,6 @@
-title: 未分组
+title: nginx上传图片错误和代理resolver错误
 date: 2020-06-23 11:10:08
+tags: ["java开发工具"]
 ---------
 # nginx日常使用
  1. 使用

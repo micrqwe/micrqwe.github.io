@@ -1,5 +1,6 @@
-title: 未分组
+title: log4j2的使用和配置项说明
 date: 2020-06-23 11:10:08
+tags: ["java开发"]
 ---------
 # log4j2结合springboot
 

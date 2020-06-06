@@ -1,5 +1,6 @@
-title: 未分组
+title: xcodebuild找不到
 date: 2020-06-23 11:10:08
+tags: ["xcode"]
 ---------
 # xcode找不到
 ```

@@ -1,5 +1,6 @@
-title: 未分组
+title: log4j平滑升级log4j2
 date: 2020-06-23 11:10:08
+tags: ["java开发"]
 ---------
 # log4j升级
 

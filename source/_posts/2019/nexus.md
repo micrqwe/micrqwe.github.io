@@ -1,5 +1,6 @@
-title: 未分组
+title: mvn私服配置
 date: 2020-06-23 11:10:08
+tags: ["java开发工具"]
 ---------
 # maven私服配置
 1. 下载nexus直接运行bin目录 ./nexus start启动;

@@ -1,5 +1,6 @@
-title: 未分组
+title: phonegap/cordova
 date: 2020-06-23 11:10:08
+tags: "杂项"
 ---------
 # 安装phonegap过程
 ## 安装node.js

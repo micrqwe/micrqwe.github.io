@@ -1,5 +1,6 @@
-title: 未分组
+title: grails3开发
 date: 2020-06-23 11:10:08
+tags: ["grails","groovy"]
 ---------
 # grails3开发
 ## gradle的依赖本地项目

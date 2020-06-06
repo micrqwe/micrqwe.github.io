@@ -1,5 +1,6 @@
-title: 未分组
+title: nodeJs/Bower初始化/gulp的使用
 date: 2020-06-23 11:10:08
+tags: ["nodeJs"]
 ---------
 # 使用bower的项目初始化
 

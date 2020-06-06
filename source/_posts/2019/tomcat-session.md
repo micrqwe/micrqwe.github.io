@@ -1,5 +1,6 @@
-title: 未分组
+title: 配置使用tomcat的session集中存储
 date: 2020-06-23 11:10:08
+tags: ["java开发工具"]
 ---------
 # session存储
 

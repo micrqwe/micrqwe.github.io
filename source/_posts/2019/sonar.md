@@ -1,5 +1,6 @@
-title: 未分组
+title: sonarQube代码配置
 date: 2020-06-23 11:10:08
+tags: ["java开发工具"]
 ---------
 # java代码规范工具安装和Idea下的使用
 ```

@@ -1,5 +1,6 @@
-title: 未分组
+title: jre添加https证书
 date: 2020-06-23 11:10:08
+tags: ["java开发"]
 ---------
 # 自己新建https证书，以及使用其他人的https
 1. 自己新建证书：输入如下命令：keytool -genkey -alias ssodemo -keyalg RSA -keysize 1024 -keypass zhoubang -validity 365 -keystore E:\zhoubang.keystore -storepass 123456中间的内容参数自己替换

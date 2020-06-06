@@ -1,5 +1,6 @@
-title: 未分组
+title: ubuntu一些配置
 date: 2020-06-23 11:10:08
+tags: "杂项"
 ---------
 [打印](http://www.hplipopensource.com/hplip-web/install/install/index.html)
 

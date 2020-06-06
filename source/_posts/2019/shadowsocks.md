@@ -1,5 +1,6 @@
-title: 未分组
+title: shadowsocks安装
 date: 2020-06-23 11:10:08
+tags: ["linux"]
 ---------
 ## 安装pip3
 yum install python34-pip -y

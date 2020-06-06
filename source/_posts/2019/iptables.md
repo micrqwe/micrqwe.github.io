@@ -1,5 +1,6 @@
-title: 未分组
+title: iptables删除规则
 date: 2020-06-23 11:10:08
+tags: ["linux"]
 ---------
 # 删除iptables的规则
 
