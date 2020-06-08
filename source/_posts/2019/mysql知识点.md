@@ -1,6 +1,6 @@
 title: mysql知识点
 date: 2020-06-23 11:10:08
-tags: ["mysql","tree"]
+tags: ["mysql","数据结构与算法"]
 ---------
 # mysql知识点
 

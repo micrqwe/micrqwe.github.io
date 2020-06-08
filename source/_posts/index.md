@@ -18,8 +18,9 @@ tags: "快速访问"
   * [(转载)spring cloud eureka](https://blog.csdn.net/cqupt2010212062/article/details/78750104)
 
 
-* 数据知识(内容庞大。多是友情链接)
+* 数据知识
   
+  * [可视化数据结构演示网站](https://www.cs.usfca.edu/~galles/visualization/BPlusTree.html)
   * [倒排索引&正排索引](http://note.youdao.com/noteshare?id=e13f5f79e434f909f12744a16bc58f93)
   * [reids第二版文章](https://www.kancloud.cn/kancloud/redisbook/63822)
   * [elasticsearch和mongodb对比](https://app.yinxiang.com/fx/ba38d8c7-0083-4753-ac60-587996c51750)
