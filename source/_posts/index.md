@@ -26,3 +26,5 @@ tags: "快速访问"
   * [elasticsearch和mongodb对比](https://app.yinxiang.com/fx/ba38d8c7-0083-4753-ac60-587996c51750)
   * [rabbitmq精选讲解](https://www.jianshu.com/p/833119530699)
   * [java敏感词过滤实现](https://github.com/robert-bor/aho-corasick)
+  * [mongodb采用B树理解](https://blog.csdn.net/weixin_41987908/article/details/105255119)
+  * [synchronized原理和锁膨胀过程](https://blog.csdn.net/xueba8/article/details/88753443)
