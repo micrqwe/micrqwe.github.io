@@ -5,6 +5,7 @@ tags: "categories"
 ---
 # 分类
 
+1. [常用文档地址](/2020/06/24/2020/index/)
 1. 数据结构
-2. java学习
-3. mysql知识
+1. java学习
+1. mysql知识

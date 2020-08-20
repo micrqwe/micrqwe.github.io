@@ -12,10 +12,17 @@ tags: "快速访问"
   * https://github.com/btpka3/btpka3.github.com
   * https://github.com/btpka3/btpka3.github.com/tree/master/js/angular/my-angular-webpack
 
+* 线上调试必备
+  * [JVM性能调试](/2020/06/23/2019/jvmDebug/)
+  * [JVM死循环定位](/2020/06/23/2019/linuxJstackJava/)
 
 * java开发
   
   * [(转载)spring cloud eureka](https://blog.csdn.net/cqupt2010212062/article/details/78750104)
+  * [asciiflow](http://asciiflow.com/)
+    ```$xslt
+        这玩意画出来的图是可以直接复制成文本的，控制好尺寸就可以解决大部分情况，也可以想象之前网上有一些很奇葩的注释是不是就是用这个工具或者同样的原理画出来的，附上一副之前文章缺的一张图：
+    ```
 
 
 * 数据知识
