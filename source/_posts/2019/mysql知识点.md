@@ -8,7 +8,9 @@ tags: ["mysql","数据结构与算法"]
   * [B树 b+ lsm](https://blog.csdn.net/u010853261/article/details/78217823)
   * [mysql索引讲解](http://note.youdao.com/noteshare?id=77a6a7f18aae33a73d97b37e07ebdd49)
   * [mysql全文索引处理](http://note.youdao.com/noteshare?id=0578f4dbc84225ae0cb98922cee1afc1)
-
+  * [mysql页分裂](https://zhuanlan.zhihu.com/p/98818611)
+  * [B+树可以存储多少行数据](https://www.jianshu.com/p/0aba6d552a55)
+  
 ## mysql知识点
 
 1. mysql事务实现:MVCC概念
