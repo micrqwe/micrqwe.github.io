@@ -6,6 +6,8 @@ tags: ["mysql"]
 
 # EXPLAIN字段说明
 
+
+
 ## 执行explain中字段extra的含义。执行效率从上到下依次递减
 
 1. using index ：使用覆盖索引的时候就会出现

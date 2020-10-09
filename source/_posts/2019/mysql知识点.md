@@ -12,6 +12,10 @@ tags: ["mysql","数据结构与算法"]
   * [B+树可以存储多少行数据](https://www.jianshu.com/p/0aba6d552a55)
   * [mysql全篇总结](  https://juejin.im/post/6850037271233331208#heading-15)
 
+## 事务的说明探讨
+ 
+参考：[1](http://www.iloveqyc.com/2019/03/05/transaction-acid/)
+
 ## mysql知识点
 
 1. mysql事务实现:MVCC概念
