@@ -101,4 +101,8 @@ tags: ["java开发工具"]
 
 	systemctl start redis
   ```
+
+## 批量删除
+
+redis-cli -h 127.0.0.1 -p 7001 -c  keys "xxxx*" | xargs redis-cli -h 127.0.0.1 -p 7001 -c  del {}
   
