@@ -69,3 +69,13 @@ tags: ["java开发"]
 
 	-XX:NewRatio    设置老年代与新生代的比
 	```
+ 
+ 5. 垃圾回收器
+ 
+ ```
+ 　　Concurrent Mark-Sweep GC ：CMS回收器
+ 
+    Mark Sweep Compact GC：    串行GC（Serial GC）
+ 
+    Parallel GC with 2 thread(s)： 并行GC（ParNew）
+```
