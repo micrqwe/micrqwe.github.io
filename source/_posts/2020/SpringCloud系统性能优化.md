@@ -32,6 +32,7 @@ tags: "java开发"
     * 流量计算/限流
     * 统一登录验证
   * spring cloud gateway文档：https://docs.spring.io/spring-cloud-gateway/docs/2.2.6.RELEASE/reference/html/#gateway-starter
+  * -Dreactor.netty.ioWorkerCount=64
   
   问题1：线程数量设置过小。
     1. 被压测接口：返回当前系统时间。接口响应平均响应时间在1毫秒不到
