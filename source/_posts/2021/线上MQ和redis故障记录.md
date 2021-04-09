@@ -37,7 +37,7 @@ rabbitmq阻塞说明:https://cloud.tencent.com/developer/article/1454194
 ```$xslt
 1. 因为RabbitMQ服务器在启动时会计算系统内存总大小。然后会根据vm_memory_high_watermark参数指定的百分比，进行控制
 2. 当RabbitMQ的磁盘空闲空间小于50M（默认），生产者将被BLOCK，并且阻塞信息发布前，会尝试把内存中的信息输出到磁盘上
-```
+``` 
 
 # redis故障
 
