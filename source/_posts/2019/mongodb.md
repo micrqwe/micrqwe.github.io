@@ -1,6 +1,6 @@
 title: mongodb的安装/启动/集群
 date: 2020-06-23 11:10:08
-tags: "杂项"
+tags: "笔记"
 ---------
 # mongodb的安装
 1. 复制mongo.conf 进行配置文件

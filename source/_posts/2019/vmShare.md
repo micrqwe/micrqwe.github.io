@@ -1,6 +1,6 @@
 title: vm下ubuntu server共享主机文件夹
 date: 2020-06-23 11:10:08
-tags: "杂项"
+tags: "笔记"
 ---------
 ## 事实上，虚拟机上自带的VMware-tools就可以实现，但是VMware tools需要自己安装，下面介绍一下安装方法：
 

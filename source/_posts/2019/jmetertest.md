@@ -1,6 +1,6 @@
 title: jmeter测试工具
 date: 2020-06-23 11:10:08
-tags: "杂项"
+tags: "笔记"
 ---------
 # 使用jmeter进行压力测试
 

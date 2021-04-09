@@ -1,6 +1,6 @@
 title: ubuntu无法识别windows下的硬盘（双系统）
 date: 2020-06-23 11:10:08
-tags: "杂项"
+tags: "笔记"
 ---------
 # 双系统下ubuntu无法查看windows硬盘
 ```

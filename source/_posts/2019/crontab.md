@@ -1,6 +1,6 @@
 title: linux下crontab使用
 date: 2020-06-23 11:10:08
-tags: "杂项"
+tags: "笔记"
 ---------
 ## 使用linux带有的crontab
 1. 如果没有该命令，自行安装

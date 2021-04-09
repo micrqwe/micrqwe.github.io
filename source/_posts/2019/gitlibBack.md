@@ -1,6 +1,6 @@
 title: gitlib备份sh脚本
 date: 2020-06-23 11:10:08
-tags: "杂项"
+tags: "笔记"
 ---------
 # gitLib定时备份代码
 
