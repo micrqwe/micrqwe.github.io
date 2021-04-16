@@ -66,18 +66,19 @@ http://localhost:8848/nacos/index.html#/login
 ## 数据一致性
 
 1. nacos由AP CP组成混合使用；
-  *  临时节点使用AP模式，进行服务端存储，存在在一个Map中
+  * 临时节点使用AP模式，进行服务端存储，存在在一个Map中
       ```aidl
        AP协议：Distro协议。Distro是阿里巴巴的私有协议，目前流行的 Nacos服务管理框架就采用了 Distro协议。Distro 协议被定位为 临时数据的一致性协议 ：该类型协议， 不需要把数据存储到磁盘或者数据库 ，因为临时数据通常和服务器保持一个session会话， 该会话只要存在，数据就不会丢失 。
       ```
-  * 持久化节点使用CP模式，该数据会序列化进磁盘中。备注：nacos1.4之前使用raft自己实现，之后版本使用了:蚂蚁金服的jraft。
+  * 持久化节点使用CP模式（集群Leader），该数据会序列化进磁盘中。备注：nacos1.4之前使用raft自己实现，之后版本使用了:蚂蚁金服的jraft。
       ```aidl
         Raft 适用于一个管理日志一致性的协议，相比于 Paxos 协议 Raft 更易于理解和去实现它。为了提高理解性，Raft 将一致性算法分为了几个部分，包括领导选取（leader selection）、日志复制（log replication）、安全（safety），并且使用了更强的一致性来减少了必须需要考虑的状态。
       ```
-  参考文章：[蚂蚁金服开源 SOFAJRaft：生产级 Java Raft 算法库](https://blog.csdn.net/yunqiinsight/article/details/88569294)
-  参考文章:[Nacos中Distro协议梳理](https://blog.csdn.net/u012050299/article/details/110946637)
-  参考文章:[Nacos 实现 AP+CP原理Raft 算法](https://blog.csdn.net/m0_37235955/article/details/115036527)
-  参考文章:[Raft协议动态图](/2021/04/09/2021/Raft协议/)
+  1. 参考文章:[Nacos注册中心设计分析-CP模式(重点)](https://blog.csdn.net/swordyijianpku/article/details/105393459)
+  1. 参考文章：[蚂蚁金服开源 SOFAJRaft：生产级 Java Raft 算法库](https://blog.csdn.net/yunqiinsight/article/details/88569294)
+  1. 参考文章:[Nacos中Distro协议梳理](https://blog.csdn.net/u012050299/article/details/110946637)
+  1. 参考文章:[Nacos 实现 AP+CP原理Raft 算法](https://blog.csdn.net/m0_37235955/article/details/115036527)
+  1. 参考文章:[Raft协议动态图](/2021/04/09/2021/Raft协议/)
 ## 2.0版本
 
 1. 新增gprc。
