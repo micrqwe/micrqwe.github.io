@@ -73,7 +73,7 @@ tags: ["java开发"]
  5. 垃圾回收器
  
  ```
- 　　Concurrent Mark-Sweep GC ：CMS回收器
+ 　 Concurrent Mark-Sweep GC ：CMS回收器
  
     Mark Sweep Compact GC：    串行GC（Serial GC）
  
