@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="java">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../mywork/java/fastdfs-client-java-1.27-SNAPSHOT.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../mywork/java/words-18.7.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/../mywork/gotest/gotest.iml" filepath="$PROJECT_DIR$/../mywork/gotest/gotest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../mywork/java/java.iml" filepath="$PROJECT_DIR$/../mywork/java/java.iml" />
+      <module fileurl="file://$PROJECT_DIR$/micrqwe.github.io.iml" filepath="$PROJECT_DIR$/micrqwe.github.io.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../mywork/mywork.iml" filepath="$PROJECT_DIR$/../mywork/mywork.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../mywork/springboot-demo/springboot-demo.iml" filepath="$PROJECT_DIR$/../mywork/springboot-demo/springboot-demo.iml" />
+    </modules>
+  </component>
+</project>
