@@ -5,10 +5,10 @@
 # Site
 title: 柒
 subtitle: ''
-description: '不断地积累自己的知识'
+description: '时间'
 keywords:
 author: 邵文星
-language: zh-Hans
+language: zh-CN
 timezone: ''
 avatar: /imgs/timg.jpg
 
@@ -106,7 +106,7 @@ ignore:
 # Extensions
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
-theme: next
+theme: icarus
 
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html
