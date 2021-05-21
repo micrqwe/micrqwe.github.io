@@ -17,3 +17,9 @@ cd ../micrqwe.github.io
 git add .
 git commit -m "`$TIME`自动打包"
 git push
+git checkout master
+cp -rf ../micrqwe/* .
+git add .
+git commit -m "`$TIME`自动打包"
+git push -f
+git checkout hexo-master-build
