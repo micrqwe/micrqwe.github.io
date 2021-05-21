@@ -6,10 +6,7 @@ hexo clean
 hexo deploy
 cd ../micrqwe
 rm -rf *
-cd ../micrqwe.github.io
-cd public
-cp -r  * ../../micrqwe/
-cd ../../micrqwe
+cp -rf ../micrqwe.github.io/public/* .
 git add .
 git commit -m "`$TIME`自动打包"
 git push
