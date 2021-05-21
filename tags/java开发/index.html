@@ -1,0 +1,344 @@
+<!doctype html>
+<html lang="zh"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta><title>标签: java开发 - 柒</title><link rel="manifest" href="/manifest.json"><meta name="application-name" content="柒"><meta name="msapplication-TileImage" content="/img/faviconcustom.svg"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="柒"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="description" content="时间"><meta property="og:type" content="blog"><meta property="og:title" content="柒"><meta property="og:url" content="https://micrqwe.gitee.io/"><meta property="og:site_name" content="柒"><meta property="og:description" content="时间"><meta property="og:locale" content="zh_CN"><meta property="og:image" content="https://micrqwe.gitee.io/img/og_image.png"><meta property="article:author" content="邵文星"><meta property="twitter:card" content="summary"><meta property="twitter:image" content="/img/og_image.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://micrqwe.gitee.io"},"headline":"柒","image":["https://micrqwe.gitee.io/img/og_image.png"],"author":{"@type":"Person","name":"邵文星"},"publisher":{"@type":"Organization","name":"柒","logo":{"@type":"ImageObject","url":"https://micrqwe.gitee.io/img/faviconcustom.svg"}},"description":"时间"}</script><link rel="icon" href="/img/faviconcustom.svg"><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.2/css/all.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-light.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;600&amp;family=Source+Code+Pro"><link rel="stylesheet" href="/css/default.css"><style>body>.footer,body>.navbar,body>.section{opacity:0}</style><!--!--><!--!--><!--!--><!--!--><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/css/lightgallery.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/css/justifiedGallery.min.css"><!--!--><!--!--><script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script><!--!--><!--!--><meta name="generator" content="Hexo 5.0.2"></head><body class="is-2-column"><nav class="navbar navbar-main"><div class="container"><div class="navbar-brand justify-content-center"><a class="navbar-item navbar-logo" href="/"><img src="/img/faviconcustom.svg" alt="柒" height="28"></a></div><div class="navbar-menu"><div class="navbar-start"><a class="navbar-item" href="/">Home</a><a class="navbar-item" href="/archives">Archives</a><a class="navbar-item" href="/categories">Categories</a><a class="navbar-item" href="/tags">Tags</a><a class="navbar-item" href="/about">About</a></div><div class="navbar-end"><a class="navbar-item" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/micrqwe"><i class="fab fa-github"></i></a><a class="navbar-item search" title="搜索" href="javascript:;"><i class="fas fa-search"></i></a></div></div></div></nav><section class="section"><div class="container"><div class="columns"><div class="column order-2 column-main is-8-tablet is-8-desktop is-8-widescreen"><div class="card"><div class="card-content"><nav class="breadcrumb" aria-label="breadcrumbs"><ul><li><a href="/tags">标签</a></li><li class="is-active"><a href="#" aria-current="page">java开发</a></li></ul></nav></div></div><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time dateTime="2021-05-21T01:40:08.000Z" title="5/21/2021, 9:40:08 AM">2021-05-21</time>发表</span><span class="level-item"><time dateTime="2021-05-21T11:40:30.154Z" title="5/21/2021, 7:40:30 PM">2021-05-21</time>更新</span><span class="level-item"><a class="link-muted" href="/categories/spring/">spring</a></span><span class="level-item">6 分钟读完 (大约871个字)</span></div></div><h1 class="title is-3 is-size-4-mobile"><a class="link-muted" href="/2021/05/21/2021/springmvc%E5%90%AF%E5%8A%A8%E5%88%9D%E5%A7%8B%E5%8C%96%E8%BF%87%E7%A8%8B/">springmvc启动初始化过程</a></h1><div class="content"><h1 id="springmvc"><a href="#springmvc" class="headerlink" title="springmvc"></a>springmvc</h1><h2 id="web-xml-配置解释"><a href="#web-xml-配置解释" class="headerlink" title="web.xml 配置解释"></a>web.xml 配置解释</h2><ol>
+<li>放在全局中,格式如下 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;!--全局提前初始化的使用 --&gt;</span><br><span class="line"> &lt;context-param&gt;</span><br><span class="line">     &lt;param-name&gt;contextConfigLocation&lt;/param-name&gt;</span><br><span class="line">     &lt;param-value&gt;classpath:spring-mvc.xml&lt;/param-value&gt;</span><br><span class="line"> &lt;/context-param&gt;</span><br></pre></td></tr></table></figure></li>
+<li>同spring的dispatchServlet放在一起 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;!--configure the setting of springmvcDispatcherServlet and configure the mapping --&gt;</span><br><span class="line">&lt;!--        如果把下面注释掉，会默认使用servlet-name的值拼上serlvet。找WEB-INF下的类。--&gt;</span><br><span class="line">&lt;servlet&gt;</span><br><span class="line">    &lt;servlet-name&gt;spring-mvc&lt;/servlet-name&gt;</span><br><span class="line">    &lt;servlet-class&gt;org.springframework.web.servlet.DispatcherServlet&lt;/servlet-class&gt;</span><br><span class="line">        &lt;init-param&gt;</span><br><span class="line">           &lt;param-name&gt;contextConfigLocation&lt;/param-name&gt;</span><br><span class="line">           &lt;param-value&gt;classpath:spring-mvc.xml&lt;/param-value&gt;</span><br><span class="line">       &lt;/init-param&gt;</span><br><span class="line">    &lt;load-on-startup&gt;1&lt;/load-on-startup&gt;</span><br><span class="line">&lt;/servlet&gt;</span><br></pre></td></tr></table></figure></li>
+</ol>
+<ul>
+<li><p>spring-mvc下的servlet中init-param可以省略掉。如果省略掉会默认使用：servlet-name的value值拼上servlet.xml。如上文则是:(spring-mvc-servlet.xml).查找路径需在WEB-INF下。和web.xml一致</p>
+  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">类名：XmlWebApplicationContext</span><br><span class="line">加载文件方法：</span><br><span class="line">protected void loadBeanDefinitions(XmlBeanDefinitionReader reader) throws IOException &#123;</span><br><span class="line">    String[] configLocations = getConfigLocations();</span><br><span class="line">    if (configLocations != null) &#123;</span><br><span class="line">        for (String configLocation : configLocations) &#123;</span><br><span class="line">            reader.loadBeanDefinitions(configLocation);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h2></li>
+<li><p>问题一：放context-param和init-param区别?</p>
+<ol>
+<li>Context-param（上下文参数），在这个元素中可以定义多个<param-name><param-value>组成的键值对，但是要注意这里定义的键值对作用于是application，而且在有些应用中会提前定义自己的键值对，所以可以通过这种方式配置某些技术，同时这里也可以自定义一些参数，然后在业务逻辑中使用。获取键值对的方式如下 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ServletContextEvent .getServletContext().getInitParameter(&quot;urlrewrite&quot;);</span><br></pre></td></tr></table></figure></li>
+<li><init-param>的作用范围则是当前对应的Servlet，只有对应的Servlet才能够调用到，有些提前定义的Servlet中也会判断是否有某些配置的键值对，如果有则根据配置的键值对处理逻辑，没有则根据默认的逻辑处理，同时也可以自定义键值对在后期自定义的Servlet当中使用。获取键值对的方式如下  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">this.getInitParameter(&quot;param1&quot;)</span><br></pre></td></tr></table></figure>
+备注： 注意以上两者获取键值对的方式的区别，第一个必须获取ServletContext之后才能够获取，因为第一个的键值对属于整个应用，而第二个则是通过this获取，因为这里获取的键值对仅仅属于当前的Servlet。<br>hexo new page categories1. 启动一个WEB项目的时候,容器(如:Tomcat)会去读它的配置文件web.xml.读两个节点:<listener></listener>和 <context-param></context-param></li>
+</ol>
+</li>
+</ul>
+<ol>
+<li>紧接着,容器创建一个ServletContext(上下文),这个WEB项目所有部分都将共享这个上下文.</li>
+<li>容器将<context-param></context-param>转化为键值对,并交给ServletContext.</li>
+<li>容器创建<listener></listener>中的类实例,即创建监听.</li>
+<li>在监听中会有contextInitialized(ServletContextEvent args)初始化方法,在这个方法中获得ServletContext =ServletContextEvent.getServletContext();<br>context-param的值 =ServletContext.getInitParameter(“context-param的键”);</li>
+<li>得到这个context-param的值之后,你就可以做一些操作了.注意,这个时候你的WEB项目还没有完全启动完成.这个动作会比所有的Servlet都要早.<br>换句话说,这个时候,你对<context-param>中的键值做的操作,将在你的WEB项目完全启动之前被执行.</li>
+<li>举例.你可能想在项目启动之前就打开数据库.那么这里就可以在<context-param>中设置数据库的连接方式,在监听类中初始化数据库的连接.</li>
+<li>这个监听是自己写的一个类,除了初始化方法,它还有销毁方法.用于关闭应用前释放资源.比如说数据库连接的关闭. <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">如:</span><br><span class="line">&lt;!-- 加载spring的配置文件 --&gt;</span><br><span class="line">&lt;context-param&gt;</span><br><span class="line">    &lt;param-name&gt;contextConfigLocation&lt;/param-name&gt;</span><br><span class="line">   &lt;param-value&gt;/WEB-INF/applicationContext.xml,/WEB-INF/action-servlet.xml,/WEB-</span><br><span class="line"></span><br><span class="line">INF/jason-servlet.xml&lt;/param-value&gt;</span><br><span class="line">&lt;/context-param&gt;</span><br><span class="line">&lt;listener&gt;</span><br><span class="line">&lt;listener-class&gt;org.springframework.web.context.ContextLoaderListener&lt;/listener-class&gt;</span><br><span class="line">&lt;/listener&gt;</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ol>
+</div></article></div><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time dateTime="2021-04-26T13:12:08.000Z" title="4/26/2021, 9:12:08 PM">2021-04-26</time>发表</span><span class="level-item"><time dateTime="2021-04-27T11:01:52.000Z" title="4/27/2021, 7:01:52 PM">2021-04-27</time>更新</span><span class="level-item">几秒读完 (大约101个字)</span></div></div><h1 class="title is-3 is-size-4-mobile"><a class="link-muted" href="/2021/04/26/2021/%E5%BE%AE%E5%8D%9A%E7%83%AD%E6%90%9C%E5%AE%9E%E7%8E%B0/">微博热搜的实现</a></h1><div class="content"><h1 id="微博"><a href="#微博" class="headerlink" title="微博"></a>微博</h1><h2 id="实现原理"><a href="#实现原理" class="headerlink" title="实现原理"></a>实现原理</h2><ol>
+<li>网上没有具体的，看该内容涉及几个词。也进行一个总结记录</li>
+</ol>
+<ul>
+<li><p>抽样检查</p>
+  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">用于计算和存储相关数据</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>热词排名方法一：贝叶斯平均法（Bayesian average)/热词排名法二：牛顿冷却定律</p>
+  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">已关键字进行求值分数,在用优先级队列进行求TOP</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</div></article></div><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time dateTime="2021-04-19T01:12:08.000Z" title="4/19/2021, 9:12:08 AM">2021-04-19</time>发表</span><span class="level-item"><time dateTime="2021-04-22T08:32:04.000Z" title="4/22/2021, 4:32:04 PM">2021-04-22</time>更新</span><span class="level-item">4 分钟读完 (大约590个字)</span></div></div><h1 class="title is-3 is-size-4-mobile"><a class="link-muted" href="/2021/04/19/2021/%E7%BA%BF%E4%B8%8AJVM%E8%BF%90%E8%A1%8C%E8%B0%83%E8%AF%95/">线上JVM运行调试</a></h1><div class="content"><h1 id="jvm调试"><a href="#jvm调试" class="headerlink" title="jvm调试"></a>jvm调试</h1><h2 id="gc部分"><a href="#gc部分" class="headerlink" title="gc部分"></a>gc部分</h2><ul>
+<li><p>jvm的垃圾收集器状态</p>
+<ol>
+<li>jmap -heap [pid]<ul>
+<li>参考文章:<a href="/2020/06/23/2019/jvmXmSurvivor/">内存分配和垃圾收集器</a><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">前面几行中标记有使用的垃圾收集器，以及目前各个分代中的使用和剩余</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ol>
+</li>
+<li><p>jvm dump堆文件</p>
+<ol>
+<li>jmap -dump:format=b,file=[路径].hprof [pid]</li>
+</ol>
+</li>
+<li><p>手动gc</p>
+<ol>
+<li>jmap -histo:live [pid]  </li>
+</ol>
+</li>
+<li><p>查看gc的次数和频率</p>
+<ol>
+<li>使用jstat。参考文章:<a target="_blank" rel="noopener" href="https://docs.qq.com/sheet/DWWZ5WnNiSG5Yb1pl?tab=BB08J2">java性能调试工具</a></li>
+<li>在实际使用中发现如下的问题。后面在一篇文章有部分说明:<a target="_blank" rel="noopener" href="https://blog.csdn.net/luzhensmart/article/details/82563734">参考文章</a><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">1. 新生代为680M。SurvivorRatio为8。也就是新生区544M，2个幸存区各68M。但结合线上的jmap和jstat中，这个使用内存量会变，幸存区实际再用低于68M，新生区会大于544。</span><br><span class="line">原因：使用的是ps新生代垃圾收集器才会是这个问题。parnew则是按照配置来预先分配</span><br><span class="line">parallel scavenge新生代中具体分配策略参见： </span><br><span class="line">备注： Parallel Scavenge 收集器</span><br><span class="line">    特点：属于新生代收集器也是采用复制算法的收集器，又是并行的多线程收集器（与ParNew收集器类似）。</span><br><span class="line">    该收集器的目标是达到一个可控制的吞吐量。还有一个值得关注的点是：GC自适应调节策略(这就是为啥幸存区不是按照比例的来配置大小的原因)（与ParNew收集器最重要的一个区别）</span><br><span class="line">    GC自适应调节策略：Parallel Scavenge收集器可设置-XX:+UseAdptiveSizePolicy参数。当开关打开时不需要手动指定新生代的大小（-Xmn）、Eden与Survivor区的比例（-XX:SurvivorRation）、晋升老年代的对象年龄（-XX:PretenureSizeThreshold）等，虚拟机会根据系统的运行状况收集性能监控信息，动态设置这些参数以提供最优的停顿时间和最高的吞吐量，这种调节方式称为GC的自适应调节策略。</span><br><span class="line">    Parallel Scavenge收集器使用两个参数控制吞吐量：</span><br><span class="line">        XX:MaxGCPauseMillis 控制最大的垃圾收集停顿时间</span><br><span class="line">        XX:GCRatio 直接设置吞吐量的大小。</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+</li>
+</ul>
+</div></article></div><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time dateTime="2021-03-26T01:12:08.000Z" title="3/26/2021, 9:12:08 AM">2021-03-26</time>发表</span><span class="level-item"><time dateTime="2021-03-26T09:12:38.000Z" title="3/26/2021, 5:12:38 PM">2021-03-26</time>更新</span><span class="level-item">5 分钟读完 (大约788个字)</span></div></div><h1 class="title is-3 is-size-4-mobile"><a class="link-muted" href="/2021/03/26/2021/%E7%BA%BF%E4%B8%8AMQ%E5%92%8Credis%E6%95%85%E9%9A%9C%E8%AE%B0%E5%BD%95/">问题故障解析</a></h1><div class="content"><h1 id="mq故障"><a href="#mq故障" class="headerlink" title="mq故障"></a>mq故障</h1><ol>
+<li><p>事故现象：服务开始出现请求缓慢，进而系统全面崩溃</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">8:00，收到系统故障提醒,并立即进行故障的排查； </span><br><span class="line">8:00至16:00，分析问题，从CPU、内存、连接数量、系统日志等进行分析均未发现明显异常，</span><br><span class="line">尝试各种解决方案，包括限流、熔断、服务降级、服务重启等均无法有效解决； </span><br><span class="line">16:00, 发现到消息队列服务器有阻塞现象，对消息队列服务器进行重启； </span><br><span class="line">16:30，完成所有相关的服务器重启，系统恢复正常，并开始验证服务的稳定性； </span><br><span class="line">17:20，对外恢复服务； </span><br></pre></td></tr></table></figure>
+</li>
+<li><p>问题出现原因。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">1. 出现问题原因在于生产者发送消息过快，mq出现消息堆积，同时消费者处理过慢。</span><br><span class="line">2. 由于消息持续堆积引发了rabbitmq自己的保护机制，开始阻塞生产者写入消息。</span><br><span class="line">3. 生产者开启的是线程，线程被阻塞无法释放，线程不断开启，重启服务后没过几分钟服务又开始宕机。</span><br><span class="line">4. 虽然看见mq消费堆积，服务重启后依然在不断消费，所以还未察觉到是mq有问题。</span><br><span class="line">5. mq的阻塞写入造成一个循环，消费慢，写入快，系统服务级联反应。造成系统持续不可用。</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>执行过程。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">1. 线上出现问题，第一要点保证服务尽快可用。</span><br><span class="line">2. 对于中间件重启，第一要点恢复数据，防止数据丢失。</span><br><span class="line">3. mq由于本次消费堆积，进行了和相应业务方对接，对mq消息进行区分。哪些可以直接删除(需要参照业务)。哪些重新导出写脚本进行补偿。</span><br><span class="line">4. mq重启后服务一切正常，系统恢复可用状态</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<p>rabbitmq阻塞说明:<a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/article/1454194">https://cloud.tencent.com/developer/article/1454194</a></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">1. 因为RabbitMQ服务器在启动时会计算系统内存总大小。然后会根据vm_memory_high_watermark参数指定的百分比，进行控制</span><br><span class="line">2. 当RabbitMQ的磁盘空闲空间小于50M（默认），生产者将被BLOCK，并且阻塞信息发布前，会尝试把内存中的信息输出到磁盘上</span><br><span class="line">``` </span><br><span class="line"></span><br><span class="line"># redis故障</span><br><span class="line"></span><br><span class="line">1. 事故现象：个别服务大量redis timeout。导致涉及缓存接口不可用。</span><br><span class="line">```$xslt</span><br><span class="line">1. 重启redis，数据抓紧恢复，影响1小时</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>问题出现原因。本次问题出现为3个原因进行叠加。<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1. redis存在大量的大key，导致redis服务的压力过大。</span><br><span class="line">2. 中间件的不合理，由于开发者不了解jedis，对jedis在外面在包装一个线程池，导致线程池套用线程池。redis服务的tcp连接非常多。</span><br><span class="line">3. redis目前为共享一个，线上服务多。最终问题出现压垮了redis。</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+</div></article></div><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time dateTime="2021-03-18T12:10:08.000Z" title="3/18/2021, 8:10:08 PM">2021-03-18</time>发表</span><span class="level-item"><time dateTime="2021-03-18T12:52:00.000Z" title="3/18/2021, 8:52:00 PM">2021-03-18</time>更新</span><span class="level-item">几秒读完 (大约109个字)</span></div></div><h1 class="title is-3 is-size-4-mobile"><a class="link-muted" href="/2021/03/18/2020/%E7%BA%BF%E7%A8%8B%E6%B1%A0/">java线程池状态</a></h1><div class="content"><ol>
+<li>Java线程不同状态下中断机制的效果<br> 状态    中断效果    描述<pre><code>NEW    无
+RUNNABLE    设置中断标志位    用户自己判断是否中断，以及如何处理
+BLOCKED    设置中断标志位    用户自己判断是否中断，以及如何处理
+WAITING    抛InterruptedException异常，并清空中断标志位
+TIMED_WAITING    抛InterruptedException异常，并清空中断标志位
+TERMINATED    死亡状态</code></pre></li>
+</ol>
+</div></article></div><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time dateTime="2021-02-23T07:12:08.000Z" title="2/23/2021, 3:12:08 PM">2021-02-23</time>发表</span><span class="level-item"><time dateTime="2021-04-22T08:29:14.000Z" title="4/22/2021, 4:29:14 PM">2021-04-22</time>更新</span><span class="level-item">几秒读完 (大约59个字)</span></div></div><h1 class="title is-3 is-size-4-mobile"><a class="link-muted" href="/2021/02/23/2021/jvm%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E5%99%A8/">jvm垃圾回收讲解</a></h1><div class="content"><h2 id="2篇文章"><a href="#2篇文章" class="headerlink" title="2篇文章"></a>2篇文章</h2><ol>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/xiaojin21cen/article/details/106686506">java 虚拟机（ jvm ） 的垃圾收集器的发展史</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/zhao_miao/article/details/88748037">垃圾收集器</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/chenpt/p/9803298.html">垃圾收集器</a></li>
+<li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/170572432">zgc</a></li>
+</ol>
+</div></article></div><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time dateTime="2021-02-02T05:12:08.000Z" title="2/2/2021, 1:12:08 PM">2021-02-02</time>发表</span><span class="level-item"><time dateTime="2021-05-21T11:40:30.150Z" title="5/21/2021, 7:40:30 PM">2021-05-21</time>更新</span><span class="level-item"><a class="link-muted" href="/categories/%E6%80%A7%E8%83%BD/">性能</a></span><span class="level-item">13 分钟读完 (大约1909个字)</span></div></div><h1 class="title is-3 is-size-4-mobile"><a class="link-muted" href="/2021/02/02/2021/SpringCloud%E7%B3%BB%E7%BB%9F%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/">SpringCloud系统性能优化</a></h1><div class="content"><h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><ul>
+<li>需要对系统进行流程性测试，查找系统瓶颈点所在，当大流量来临能有效应对。现将优化处理方法进行梳理总结，供大家参考学习</li>
+</ul>
+<h2 id="系统参数"><a href="#系统参数" class="headerlink" title="系统参数"></a>系统参数</h2><table>
+<thead>
+<tr>
+<th>系统服务名</th>
+<th>服务器数量</th>
+<th>CPU(核)</th>
+<th>内存(G)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>nginx</td>
+<td>2</td>
+<td>4</td>
+<td>8</td>
+</tr>
+<tr>
+<td>gateway</td>
+<td>4</td>
+<td>8</td>
+<td>16</td>
+</tr>
+<tr>
+<td>course(不同服务器类型)</td>
+<td>2</td>
+<td>2</td>
+<td>4</td>
+</tr>
+<tr>
+<td>course(不同服务器类型)</td>
+<td>2</td>
+<td>8</td>
+<td>64</td>
+</tr>
+<tr>
+<td>user</td>
+<td>2</td>
+<td>2</td>
+<td>4</td>
+</tr>
+<tr>
+<td>login</td>
+<td>2</td>
+<td>2</td>
+<td>4</td>
+</tr>
+<tr>
+<td>数据库1</td>
+<td>1</td>
+<td>8</td>
+<td>16</td>
+</tr>
+<tr>
+<td>数据库2</td>
+<td>1</td>
+<td>8</td>
+<td>16</td>
+</tr>
+<tr>
+<td>redis</td>
+<td>1</td>
+<td>2</td>
+<td>2</td>
+</tr>
+</tbody></table>
+<ul>
+<li>服务器说明：在测试中有直连进行测试，实际测试某一个服务中，未全部使用服务器，会根据测试内容临时下线机器，具体方案会在后续说到。</li>
+<li>启动参数中：gateway使用内存配置为4g。 其他应用服务启动参数内存为2g</li>
+</ul>
+<h2 id="压测优化点内容"><a href="#压测优化点内容" class="headerlink" title="压测优化点内容"></a>压测优化点内容</h2><h3 id="gateway优化项"><a href="#gateway优化项" class="headerlink" title="gateway优化项"></a>gateway优化项</h3><ul>
+<li><p>网关核心功能</p>
+<ul>
+<li>路由转发</li>
+<li>流量计算/限流</li>
+<li>统一登录验证</li>
+</ul>
+</li>
+<li><p>spring cloud gateway文档：<a target="_blank" rel="noopener" href="https://docs.spring.io/spring-cloud-gateway/docs/2.2.6.RELEASE/reference/html/#gateway-starter">https://docs.spring.io/spring-cloud-gateway/docs/2.2.6.RELEASE/reference/html/#gateway-starter</a></p>
+</li>
+<li><p>-Dreactor.netty.ioWorkerCount=64</p>
+<p>问题1：线程数量设置过小。</p>
+<ol>
+<li>被压测接口：返回当前系统时间。接口响应平均响应时间在1毫秒不到</li>
+<li>压测方法：直连tomcat压测，和通过gateway在连接对比压测</li>
+<li>压测QPS：tomcat直连：3W+ 。 gateway链接：1500+</li>
+<li>说明：gateway有进行redis的登录验证操作，耗时在2、3毫秒左右，redis的瓶颈在1W左右</li>
+<li>压测过程中，对比后发现gateway服务器的cpu利用率很低，对比发现属于redis验证阻塞了主线程，导致请求无法及时转发。</li>
+<li>gateway使用reactor netty进行作为转发框架。默认设置为cpu数量同等线程数，但只适合cpu密集型任务，对于路由转发任务需要调高线程数量，以便于提高cpu利用率<br>参考文章：<a target="_blank" rel="noopener" href="https://blog.csdn.net/trecn001/article/details/107286396">https://blog.csdn.net/trecn001/article/details/107286396</a></li>
+</ol>
+<p>问题2：登录验证redis存在大key</p>
+<ol>
+<li>被压测接口：同问题1一致</li>
+<li>压测方法：同问题1一致</li>
+<li>压测QPS：同问题1一致</li>
+<li>说明：同问题1一致</li>
+<li>经过解决问题1后，QPS依然维持在1W左右，通过计算，用户登录后存储在redis中字节数为1388个字节，redis带宽为128Mbit/s。换算后redis的带宽瓶颈为QPS：1W+。去掉中间程序因素，只能维持在1w左右</li>
+<li>追踪程序后，用户登录使用的为jwt验证。会将用户所有数据进行加密存储为accessToken和一个refreshToken。<br>参考文章：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/ruoruchujian/p/11271285.html">https://www.cnblogs.com/ruoruchujian/p/11271285.html</a></li>
+<li>redis存储信息包含：用户id，用户类型，accessToken,refreshToken,deviceId,jti。同时：根据jwt的规则accessToken加密串已经包含了所有的信息，所以不需要在单独存储。同时查看目前系统登录逻辑refreshToken暂时并没有使用，只是用于一个扩展项。</li>
+<li>对登录用户信息进行优化，redis不在存储refreshToken，同时对加密token进行字段缩减。只放入userId，deviceId必要字段，加密串大大减少。缩减后剩余388个字节。redis带宽可同步增长3~4倍</li>
+</ol>
+</li>
+</ul>
+<h3 id="应用服务优化项"><a href="#应用服务优化项" class="headerlink" title="应用服务优化项"></a>应用服务优化项</h3><ol>
+<li><p><a href="">spring actuator至性能衰减</a></p>
+</li>
+<li><p><a href="">华为云redis查询QPS过低排查</a></p>
+</li>
+<li><p><a href="">spring mvc transactional导致性能瓶颈</a></p>
+</li>
+<li><p>应用服务tomcat连接数配置,此项不作说明，需要根据业务系统来定</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">server.tomcat.max-threads=300   // springboot默认是200</span><br><span class="line">server.tomcat.accept-count=200  // springboot默认是100</span><br><span class="line">server.tomcat.max-connections=8192  // springboot默认是8192 . 1024*8。</span><br><span class="line">server.tomcat.min-spare-threads=50   // springboot默认是10</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>hystrix使用信号量配置减少CPU上下文切换,此项不作说明，需要根据业务系统来定</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">1. 参考文章：https://blog.csdn.net/dap769815768/article/details/94630276</span><br><span class="line">2. 系统使用了okhttp，本身有配置相应线程池，不需要在使用hystrix进行线程池。以减少cpu争用</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<h3 id="优化总结"><a href="#优化总结" class="headerlink" title="优化总结"></a>优化总结</h3><ol>
+<li>在分布式系统中，需要定位问题点，问题点对应了才能进行解决。上面解决方案非常简单，但难点是定位到各个问题点。同时有可能是多不同问题点叠加产生瓶颈。</li>
+<li>定位问题中需要进行分解目标点,参考附录大致图中。以下是定位gateway网关的思路。其他接口也可以参照以下思路。使用排除法一步步测试<ul>
+<li>系统经过第一次的压测，将应用服务进行了优化。随后进行第二轮压测，定位至网关redis瓶颈和线程数。定位过程如下<ul>
+<li>在前面压测中，由于应用服务存在瓶颈点，一直未打满gateway，导致无法压测出gateway有瓶颈。本次进行全流程的压测，其中有一个响应在几毫秒内的接口。对比tomcat和网关后发现有巨大差异。</li>
+<li>压测中需要进行一步步排除差异，第一步：先进行了tomcat压测，排除nginx和gateway，第二步：直连其中一台gateway进行压测，排除nginx，第三步：外网域名压测。</li>
+<li>结果对比后第二步有巨大差异，而且波动很大。第三步由于nginx有2台，gateway有4台。在物理设备中有增加，但同时也同第一步的结果差异较大</li>
+<li>通过第二步对比tomcat和经过网关在转发的QPS数后,准备了一个不进行登录验证空接口进行测试（下文该接口记录为A），同时网关有进行登录验证，在准备一个需要登录验证的空接口（下文该接口记录为B）。</li>
+<li>直接进行tomcat压测，确定应用服务是否存在瓶颈点。对tomcat链接瓶颈疑问直连进行压测。确定tomcat参数正常，不存在相应瓶颈</li>
+<li>进行第二步操作细化，先使用了A接口进行压测。对比发现QPS相差较小，由于经过网关一层有相比较有下降，稍QPS少一点为正常现象。</li>
+<li>确定了A接口不存在问题。这时候在使用B接口进行测试，运行效果相差特别大。QPS有10的倍数下降。这时候可以确定为网关登录验证出现问题</li>
+<li>当前问题进行了细化，网关的登录验证产生瓶颈。这时候定位出2个问题。</li>
+<li>首先查看了redis瓶颈，通过监控发现redis没有瓶颈，带宽使用量也不高，那么就确定为redis的客户端也就是gateway存在其他瓶颈。</li>
+<li>首先对gateway的redis连接数进行优化，调高参数，进行再次压测。但调高参数发现并没有效果，同时调高的参数并没有被使用上。在细化后瓶颈点不在redis连接获取数据上</li>
+<li>对gateway的流程进行梳理，查看开启的线程数量为8个。同时经过跟踪后，redis的操作是在主线程进行。主线程数量不足导致的并发数无法提高</li>
+<li>提高主线程并发数量，QPS响应开始以倍数提高。最终测试通过</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<p>参考文章:<a target="_blank" rel="noopener" href="https://www.cnblogs.com/binyue/p/6141088.html">https://www.cnblogs.com/binyue/p/6141088.html</a></p>
+</div></article></div><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time dateTime="2021-01-23T01:12:08.000Z" title="1/23/2021, 9:12:08 AM">2021-01-23</time>发表</span><span class="level-item"><time dateTime="2021-05-21T11:40:22.141Z" title="5/21/2021, 7:40:22 PM">2021-05-21</time>更新</span><span class="level-item"><a class="link-muted" href="/categories/%E6%80%A7%E8%83%BD/">性能</a></span><span class="level-item">几秒读完 (大约57个字)</span></div></div><h1 class="title is-3 is-size-4-mobile"><a class="link-muted" href="/2021/01/23/2021/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/">性能优化</a></h1><div class="content"><ul>
+<li><p>spring mvc transactional导致性能瓶颈</p>
+</li>
+<li><p>华为云redis带宽限制</p>
+</li>
+<li><p>spring actuator至性能瓶颈(<a target="_blank" rel="noopener" href="https://www.shuzhiduo.com/A/rV57PbN9dP/">https://www.shuzhiduo.com/A/rV57PbN9dP/</a>)</p>
+</li>
+<li><p>优化项：tomcat进行并发配置</p>
+</li>
+<li><p>hystrix信号量配置减少CPU上下文切换</p>
+</li>
+</ul>
+</div></article></div><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time dateTime="2020-08-20T03:10:08.000Z" title="8/20/2020, 11:10:08 AM">2020-08-20</time>发表</span><span class="level-item"><time dateTime="2021-03-18T12:50:42.000Z" title="3/18/2021, 8:50:42 PM">2021-03-18</time>更新</span><span class="level-item">13 分钟读完 (大约1996个字)</span></div></div><h1 class="title is-3 is-size-4-mobile"><a class="link-muted" href="/2020/08/20/2020/javaThread/">java线程池参数说明</a></h1><div class="content"><h3 id="java线程池"><a href="#java线程池" class="headerlink" title="java线程池"></a>java线程池</h3><p>ThreadPoolExecutor<br>来窥探线程池核心类的构造函数，我们需要理解每一个参数的作用，才能理解线程池的工作原理。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">public ThreadPoolExecutor(int corePoolSize,</span><br><span class="line">                            int maximumPoolSize,</span><br><span class="line">                            long keepAliveTime,</span><br><span class="line">                            TimeUnit unit,</span><br><span class="line">                            BlockingQueue&lt;Runnable&gt; workQueue,</span><br><span class="line">                            ThreadFactory threadFactory,</span><br><span class="line">                            RejectedExecutionHandler handler) &#123;</span><br><span class="line">      ......</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>corePoolSize：保留在池中的线程数，即使它们空闲，除非设置了 allowCoreThreadTimeOut，不然不会关闭。</li>
+<li>maximumPoolSize：队列满后池中允许的最大线程数。</li>
+<li>keepAliveTime、TimeUnit：如果线程数大于核心数，多余的空闲线程的保持的最长时间会被销毁。unit 是 keepAliveTime 参数的时间单位。当设置 allowCoreThreadTimeOut(true) 时，线程池中 corePoolSize 范围内的线程空闲时间达到 keepAliveTime 也将回收。</li>
+<li>workQueue：当线程数达到 corePoolSize 后，新增的任务就放到工作队列 workQueue 里，而线程池中的线程则努力地从 workQueue 里拉活来干，也就是调用 poll 方法来获取任务。</li>
+<li>ThreadFactory：创建线程的工厂，比如设置是否是后台线程、线程名等。</li>
+<li>RejectedExecutionHandler：拒绝策略，处理程序因为达到了线程界限和队列容量执行拒绝策略。也可以自定义拒绝策略，只要实现 RejectedExecutionHandler 即可。默认的拒绝策略：AbortPolicy 拒绝任务并抛出 RejectedExecutionException 异常；CallerRunsPolicy 提交该任务的线程执行；</li>
+</ol>
+<ul>
+<li>来分析下每个参数之间的关系：<br>提交新任务的时候，如果线程池数 &lt; corePoolSize，则创建新的线程池执行任务，当线程数 = corePoolSize 时，新的任务就会被放到工作队列 workQueue 中，线程池中的线程尽量从队列里取任务来执行。<br>如果任务很多，workQueue 满了，且 当前线程数 &lt; maximumPoolSize 时则临时创建线程执行任务，如果总线程数量超过 maximumPoolSize，则不再创建线程，而是执行拒绝策略。DiscardPolicy 什么都不做直接丢弃任务；DiscardOldestPolicy 丢弃最旧的未处理程序;</li>
+</ul>
+<h3 id="tomcat线程池"><a href="#tomcat线程池" class="headerlink" title="tomcat线程池"></a>tomcat线程池</h3><p>定制版的 ThreadPoolExecutor，继承了 java.util.concurrent.ThreadPoolExecutor。 对于线程池有两个很关键的参数：</p>
+<p>线程个数。<br>队列长度。</p>
+<p>Tomcat 必然需要限定想着两个参数不然在高并发场景下可能导致 CPU 和内存有资源耗尽的风险。继承了 与 java.util.concurrent.ThreadPoolExecutor 相同，但实现的效率更高。<br>其构造方法如下，跟 Java 官方的如出一辙</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">public ThreadPoolExecutor(int corePoolSize, int maximumPoolSize, long keepAliveTime, TimeUnit unit, BlockingQueue&lt;Runnable&gt; workQueue, RejectedExecutionHandler handler) &#123;</span><br><span class="line">        super(corePoolSize, maximumPoolSize, keepAliveTime, unit, workQueue, handler);</span><br><span class="line">        prestartAllCoreThreads();</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>在 Tomcat 中控制线程池的组件是 StandardThreadExecutor , 也是实现了生命周期接口，下面是启动线程池的代码</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">@Override</span><br><span class="line">   protected void startInternal() throws LifecycleException &#123;</span><br><span class="line">       // 自定义任务队列</span><br><span class="line">       taskqueue = new TaskQueue(maxQueueSize);</span><br><span class="line">       // 自定义线程工厂</span><br><span class="line">       TaskThreadFactory tf = new TaskThreadFactory(namePrefix,daemon,getThreadPriority());</span><br><span class="line">      // 创建定制版线程池</span><br><span class="line">       executor = new ThreadPoolExecutor(getMinSpareThreads(), getMaxThreads(), maxIdleTime, TimeUnit.MILLISECONDS,taskqueue, tf);</span><br><span class="line">       executor.setThreadRenewalDelay(threadRenewalDelay);</span><br><span class="line">       if (prestartminSpareThreads) &#123;</span><br><span class="line">           executor.prestartAllCoreThreads();</span><br><span class="line">       &#125;</span><br><span class="line">       taskqueue.setParent(executor);</span><br><span class="line">       // 观察者模式，发布启动事件</span><br><span class="line">       setState(LifecycleState.STARTING);</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+
+<p>其中的关键点在于：</p>
+<p>Tomcat 有自己的定制版任务队列和线程工厂，并且可以限制任务队列的长度，它的最大长度是 maxQueueSize。<br>Tomcat 对线程数也有限制，设置了核心线程数（minSpareThreads）和最大线程池数（maxThreads）。</p>
+<p>除此之外， Tomcat 在官方原有基础上重新定义了自己的线程池处理流程，原生的处理流程上文已经说过。</p>
+<p>前 corePoolSize 个任务时，来一个任务就创建一个新线程。<br>还有任务提交，直接放到队列，队列满了，但是没有达到最大线程池数则创建临时线程救火。<br>线程总线数达到 maximumPoolSize ，直接执行拒绝策略。</p>
+<p>Tomcat 线程池扩展了原生的 ThreadPoolExecutor，通过重写 execute 方法实现了自己的任务处理逻辑：</p>
+<p>前 corePoolSize 个任务时，来一个任务就创建一个新线程。<br>还有任务提交，直接放到队列，队列满了，但是没有达到最大线程池数则创建临时线程救火。<br>线程总线数达到 maximumPoolSize ，继续尝试把任务放到队列中。如果队列也满了，插入任务失败，才执行拒绝策略。</p>
+<p>最大的差别在于 Tomcat 在线程总数达到最大数时，不是立即执行拒绝策略，而是再尝试向任务队列添加任务，添加失败后再执行拒绝策略。<br>代码如下所示:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">public void execute(Runnable command, long timeout, TimeUnit unit) &#123;</span><br><span class="line">   // 记录提交任务数 +1</span><br><span class="line">    submittedCount.incrementAndGet();</span><br><span class="line">    try &#123;</span><br><span class="line">        // 调用 java 原生线程池来执行任务，当原生抛出拒绝策略</span><br><span class="line">        super.execute(command);</span><br><span class="line">    &#125; catch (RejectedExecutionException rx) &#123;</span><br><span class="line">      //总线程数达到 maximumPoolSize，Java 原生会执行拒绝策略</span><br><span class="line">        if (super.getQueue() instanceof TaskQueue) &#123;</span><br><span class="line">            final TaskQueue queue = (TaskQueue)super.getQueue();</span><br><span class="line">            try &#123;</span><br><span class="line">                // 尝试把任务放入队列中</span><br><span class="line">                if (!queue.force(command, timeout, unit)) &#123;</span><br><span class="line">                    submittedCount.decrementAndGet();</span><br><span class="line">                  // 队列还是满的，插入失败则执行拒绝策略</span><br><span class="line">                    throw new RejectedExecutionException(&quot;Queue capacity is full.&quot;);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125; catch (InterruptedException x) &#123;</span><br><span class="line">                submittedCount.decrementAndGet();</span><br><span class="line">                throw new RejectedExecutionException(x);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">          // 提交任务书 -1</span><br><span class="line">            submittedCount.decrementAndGet();</span><br><span class="line">            throw rx;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Tomcat 线程池是用 submittedCount 来维护已经提交到了线程池，这跟 Tomcat 的定制版的任务队列有关。Tomcat 的任务队列 TaskQueue 扩展了 Java 中的 LinkedBlockingQueue，我们知道 LinkedBlockingQueue 默认情况下长度是没有限制的，除非给它一个 capacity。因此 Tomcat 给了它一个 capacity，TaskQueue 的构造函数中有个整型的参数 capacity，TaskQueue 将 capacity 传给父类 LinkedBlockingQueue 的构造函数，防止无限添加任务导致内存溢出。而且默认是无限制，就会导致当前线程数达到核心线程数之后，再来任务的话线程池会把任务添加到任务队列，并且总是会成功，这样永远不会有机会创建新线程了。<br>为了解决这个问题，TaskQueue 重写了 LinkedBlockingQueue 的 offer 方法，在合适的时机返回 false，返回 false 表示任务添加失败，这时线程池会创建新的线程。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">public class TaskQueue extends LinkedBlockingQueue&lt;Runnable&gt; &#123;</span><br><span class="line"></span><br><span class="line">  ...</span><br><span class="line">   @Override</span><br><span class="line">  // 线程池调用任务队列的方法时，当前线程数肯定已经大于核心线程数了</span><br><span class="line">  public boolean offer(Runnable o) &#123;</span><br><span class="line"></span><br><span class="line">      // 如果线程数已经到了最大值，不能创建新线程了，只能把任务添加到任务队列。</span><br><span class="line">      if (parent.getPoolSize() == parent.getMaximumPoolSize())</span><br><span class="line">          return super.offer(o);</span><br><span class="line"></span><br><span class="line">      // 执行到这里，表明当前线程数大于核心线程数，并且小于最大线程数。</span><br><span class="line">      // 表明是可以创建新线程的，那到底要不要创建呢？分两种情况：</span><br><span class="line"></span><br><span class="line">      //1. 如果已提交的任务数小于当前线程数，表示还有空闲线程，无需创建新线程</span><br><span class="line">      if (parent.getSubmittedCount()&lt;=(parent.getPoolSize()))</span><br><span class="line">          return super.offer(o);</span><br><span class="line"></span><br><span class="line">      //2. 如果已提交的任务数大于当前线程数，线程不够用了，返回 false 去创建新线程</span><br><span class="line">      if (parent.getPoolSize()&lt;parent.getMaximumPoolSize())</span><br><span class="line">          return false;</span><br><span class="line"></span><br><span class="line">      // 默认情况下总是把任务添加到任务队列</span><br><span class="line">      return super.offer(o);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>只有当前线程数大于核心线程数、小于最大线程数，并且已提交的任务个数大于当前线程数时，也就是说线程不够用了，但是线程数又没达到极限，才会去创建新的线程。这就是为什么 Tomcat 需要维护已提交任务数这个变量，它的目的就是在任务队列的长度无限制的情况下，让线程池有机会创建新的线程。可以通过设置 maxQueueSize 参数来限制任务队列的长度。</p>
+</div></article></div><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time dateTime="2020-06-23T03:10:08.000Z" title="6/23/2020, 11:10:08 AM">2020-06-23</time>发表</span><span class="level-item"><time dateTime="2021-03-18T12:50:42.000Z" title="3/18/2021, 8:50:42 PM">2021-03-18</time>更新</span><span class="level-item">3 分钟读完 (大约377个字)</span></div></div><h1 class="title is-3 is-size-4-mobile"><a class="link-muted" href="/2020/06/23/2019/androidDevelop/">android开发/微信开发/android调试</a></h1><div class="content"><h1 id="无法安装软件"><a href="#无法安装软件" class="headerlink" title="无法安装软件"></a>无法安装软件</h1><ol>
+<li>adb uninstall net.sourceforge.simcpux  / 这样可以将手机中的软件删除干净</li>
+<li>移动app支付的时候调用起微信客户端的进行sign的key全部是小写，和公众号的不一样，公众号的驼峰标示。</li>
+</ol>
+<h2 id="用电脑版Chrome进行调试"><a href="#用电脑版Chrome进行调试" class="headerlink" title="用电脑版Chrome进行调试"></a>用电脑版Chrome进行调试</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1. 准备已就绪，在chrome地址栏输入“chrome://inspect“即可进入调试页面，对应的设备下方会显示chrome打开的网页和手机上打开的App，网页下方的四个按键分别对应审查、置顶、重载和关闭对应网页，右上方的输入框可输入要打开的网页链接。</span><br><span class="line">2. 打开的app运行在android4.4以上系统，同时使用的事chrome浏览器内核</span><br><span class="line">3. 第一次打开网页的审查会一片空白，这是因为第一次需要翻墙链接</span><br></pre></td></tr></table></figure>
+
+
+<h1 id="android进行生成签名"><a href="#android进行生成签名" class="headerlink" title="android进行生成签名"></a>android进行生成签名</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">keytool -genkeypair \</span><br><span class="line">    -keyalg RSA \</span><br><span class="line">    -keysize 1024 \</span><br><span class="line">    -sigalg SHA1withRSA \</span><br><span class="line">    -dname &quot;CN=www.xxxx.net, OU=R&amp;D, O=\&quot;xxx xxx Tech Co., Ltd\&quot;, L=WenZhou, S=Zhejiang, C=CN&quot; \</span><br><span class="line">    -validity 3650 \</span><br><span class="line">    -alias (别名) \</span><br><span class="line">    -keypass  (此处是密码) \</span><br><span class="line">    -keystore app.jks \</span><br><span class="line">    -storepass (此处是密码)</span><br></pre></td></tr></table></figure>
+
+<h1 id="签名"><a href="#签名" class="headerlink" title="签名"></a>签名</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">jarsigner -keystore app.jks \</span><br><span class="line">    -storepass  (此处是上一个填写密码) \</span><br><span class="line">    -storetype jks \</span><br><span class="line">    -keypass AmEd3ERCxEf \</span><br><span class="line">    -digestalg SHA1 \</span><br><span class="line">    -sigalg SHA1withRSA \</span><br><span class="line">    -tsa http://timestamp.digicert.com \</span><br><span class="line">    -signedjar (加密后apk地址)android-release-signed.apk \</span><br><span class="line">  (加密前apk地址)android-release-unsigned.apk \</span><br><span class="line">    (上面填写的别名)</span><br></pre></td></tr></table></figure>
+
+<h1 id="验证"><a href="#验证" class="headerlink" title="验证"></a>验证</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">jarsigner -verify \</span><br><span class="line">    -keystore app.jks \</span><br><span class="line">    -storetype jks \</span><br><span class="line">    -tsa http://timestamp.digicert.com \</span><br><span class="line">    -digestalg SHA1 \</span><br><span class="line">    -sigalg SHA1withRSA \</span><br><span class="line">    (加密后apk地址)android-release-signed.apk</span><br></pre></td></tr></table></figure></div></article></div><nav class="pagination" role="navigation" aria-label="pagination"><div class="pagination-previous is-invisible is-hidden-mobile"><a href="/tags/java%E5%BC%80%E5%8F%91/page/0/">上一页</a></div><div class="pagination-next"><a href="/tags/java%E5%BC%80%E5%8F%91/page/2/">下一页</a></div><ul class="pagination-list is-hidden-mobile"><li><a class="pagination-link is-current" href="/tags/java%E5%BC%80%E5%8F%91/">1</a></li><li><a class="pagination-link" href="/tags/java%E5%BC%80%E5%8F%91/page/2/">2</a></li><li><a class="pagination-link" href="/tags/java%E5%BC%80%E5%8F%91/page/3/">3</a></li></ul></nav></div><div class="column column-left is-4-tablet is-4-desktop is-4-widescreen  order-1"><div class="card widget" data-type="profile"><div class="card-content"><nav class="level"><div class="level-item has-text-centered flex-shrink-1"><div><figure class="image is-128x128 mx-auto mb-2"><img class="avatar" src="/img/logoAvatar.png" alt="文星"></figure><p class="title is-size-4 is-block" style="line-height:inherit;">文星</p><p class="is-size-6 is-block">1024</p><p class="is-size-6 is-flex justify-content-center"><i class="fas fa-map-marker-alt mr-1"></i><span>中国浙江</span></p></div></div></nav><nav class="level is-mobile"><div class="level-item has-text-centered is-marginless"><div><p class="heading">文章</p><a href="/archives"><p class="title">90</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">分类</p><a href="/categories"><p class="title">2</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">标签</p><a href="/tags"><p class="title">12</p></a></div></div></nav><div class="level"><a class="level-item button is-primary is-rounded" href="https://github.com/micrqwe" target="_blank" rel="noopener">关注我</a></div><div class="level is-mobile is-multiline"><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Github" href="https://github.com/micrqwe"><i class="fab fa-github"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Facebook" href="https://micrqwe.gitee.io/"><i class="fab fa-facebook"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Twitter" href="https://micrqwe.gitee.io/"><i class="fab fa-twitter"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Dribbble" href="https://micrqwe.gitee.io/"><i class="fab fa-dribbble"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="RSS" href="/"><i class="fas fa-rss"></i></a></div></div></div><!--!--><div class="card widget" data-type="links"><div class="card-content"><div class="menu"><h3 class="menu-label">链接</h3><ul class="menu-list"><li><a class="level is-mobile" href="https://portal.dxy.cn/" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">丁香园</span></span><span class="level-right"><span class="level-item tag">portal.dxy.cn</span></span></a></li><li><a class="level is-mobile" href="https://leetcode-cn.com/" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">leetcode</span></span><span class="level-right"><span class="level-item tag">leetcode-cn.com</span></span></a></li></ul></div></div></div><div class="card widget" data-type="categories"><div class="card-content"><div class="menu"><h3 class="menu-label">分类</h3><ul class="menu-list"><li><a class="level is-mobile" href="/categories/spring/"><span class="level-start"><span class="level-item">spring</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/categories/%E6%80%A7%E8%83%BD/"><span class="level-start"><span class="level-item">性能</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li></ul></div></div></div><div class="card widget" data-type="recent-posts"><div class="card-content"><h3 class="menu-label">最新文章</h3><article class="media"><div class="media-content"><p class="date"><time dateTime="2021-05-21T01:40:08.000Z">2021-05-21</time></p><p class="title"><a href="/2021/05/21/2021/springmvc%E5%90%AF%E5%8A%A8%E5%88%9D%E5%A7%8B%E5%8C%96%E8%BF%87%E7%A8%8B/">springmvc启动初始化过程</a></p><p class="categories"><a href="/categories/spring/">spring</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2021-05-11T11:47:08.000Z">2021-05-11</time></p><p class="title"><a href="/2021/05/11/2021/%E6%A0%91%E5%9E%8B%E7%BB%93%E6%9E%84%E5%92%8C%E7%AE%97%E6%B3%95%E5%BA%94%E7%94%A8/">树型结构数据与应用</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2021-05-10T09:30:08.000Z">2021-05-10</time></p><p class="title"><a href="/2021/05/10/2021/Mysql8%E5%88%9D%E5%A7%8B%E5%8C%96%E6%96%B0%E5%BB%BA%E5%BA%93/">Mysql8初始化新建库</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2021-05-06T12:34:08.000Z">2021-05-06</time></p><p class="title"><a href="/2021/05/06/2021/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AD%98%E5%82%A8%E6%A6%82%E5%BF%B5/">数据库存储概念</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2021-04-27T13:12:08.000Z">2021-04-27</time></p><p class="title"><a href="/2021/04/27/2021/%E9%9D%A2%E8%AF%95%E9%97%AE%E9%A2%98%E6%A6%82%E5%BF%B5%E7%90%86%E8%A7%A3/">概念理解</a></p></div></article></div></div><div class="card widget" data-type="archives"><div class="card-content"><div class="menu"><h3 class="menu-label">归档</h3><ul class="menu-list"><li><a class="level is-mobile" href="/archives/2021/05/"><span class="level-start"><span class="level-item">五月 2021</span></span><span class="level-end"><span class="level-item tag">4</span></span></a></li><li><a class="level is-mobile" href="/archives/2021/04/"><span class="level-start"><span class="level-item">四月 2021</span></span><span class="level-end"><span class="level-item tag">6</span></span></a></li><li><a class="level is-mobile" href="/archives/2021/03/"><span class="level-start"><span class="level-item">三月 2021</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/archives/2021/02/"><span class="level-start"><span class="level-item">二月 2021</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/archives/2021/01/"><span class="level-start"><span class="level-item">一月 2021</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2020/10/"><span class="level-start"><span class="level-item">十月 2020</span></span><span class="level-end"><span class="level-item tag">4</span></span></a></li><li><a class="level is-mobile" href="/archives/2020/08/"><span class="level-start"><span class="level-item">八月 2020</span></span><span class="level-end"><span class="level-item tag">3</span></span></a></li><li><a class="level is-mobile" href="/archives/2020/06/"><span class="level-start"><span class="level-item">六月 2020</span></span><span class="level-end"><span class="level-item tag">68</span></span></a></li></ul></div></div></div><div class="card widget" data-type="tags"><div class="card-content"><div class="menu"><h3 class="menu-label">标签</h3><div class="field is-grouped is-grouped-multiline"><div class="control"><a class="tags has-addons" href="/tags/grails-groovy/"><span class="tag">grails/groovy</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/java%E5%BC%80%E5%8F%91/"><span class="tag">java开发</span><span class="tag">27</span></a></div><div class="control"><a class="tags has-addons" href="/tags/java%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/"><span class="tag">java开发工具</span><span class="tag">11</span></a></div><div class="control"><a class="tags has-addons" href="/tags/linux/"><span class="tag">linux</span><span class="tag">6</span></a></div><div class="control"><a class="tags has-addons" href="/tags/nodeJs/"><span class="tag">nodeJs</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/xcode/"><span class="tag">xcode</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E5%8D%8F%E8%AE%AE-%E7%AE%97%E6%B3%95-%E6%95%B0%E6%8D%AE/"><span class="tag">协议/算法/数据</span><span class="tag">8</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E5%AD%98%E5%82%A8%E5%B1%82/"><span class="tag">存储层</span><span class="tag">10</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E5%BF%AB%E9%80%9F%E8%AE%BF%E9%97%AE/"><span class="tag">快速访问</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E6%BA%90%E7%A0%81%E8%A7%A3%E8%AF%BB/"><span class="tag">源码解读</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E7%AC%94%E8%AE%B0/"><span class="tag">笔记</span><span class="tag">21</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/"><span class="tag">网络基础</span><span class="tag">1</span></a></div></div></div></div></div></div><!--!--></div></div></section><footer class="footer"><div class="container"><div class="level"><div class="level-start"><a class="footer-logo is-block mb-2" href="/"><img src="/img/faviconcustom.svg" alt="柒" height="28"></a><p class="is-size-7"><span>&copy; 2021 邵文星</span>  Powered by <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> &amp; <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="noopener">Icarus</a></p></div><div class="level-end"><div class="field has-addons"><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Creative Commons" href="https://creativecommons.org/"><i class="fab fa-creative-commons"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/"><i class="fab fa-creative-commons-by"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus"><i class="fab fa-github"></i></a></p></div></div></div></div></footer><script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script><script>moment.locale("zh-CN");</script><script>var IcarusThemeSettings = {
+            article: {
+                highlight: {
+                    clipboard: true,
+                    fold: 'unfolded'
+                }
+            }
+        };</script><script src="/js/column.js"></script><script src="/js/animation.js"></script><a id="back-to-top" title="回到顶端" href="javascript:;"><i class="fas fa-chevron-up"></i></a><script src="/js/back_to_top.js" defer></script><!--!--><!--!--><!--!--><script src="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.js" defer></script><script>window.addEventListener("load", () => {
+      window.cookieconsent.initialise({
+        type: "info",
+        theme: "edgeless",
+        static: false,
+        position: "bottom-left",
+        content: {
+          message: "此网站使用Cookie来改善您的体验。",
+          dismiss: "知道了！",
+          allow: "允许使用Cookie",
+          deny: "拒绝",
+          link: "了解更多",
+          policy: "Cookie政策",
+          href: "https://www.cookiesandyou.com/",
+        },
+        palette: {
+          popup: {
+            background: "#edeff5",
+            text: "#838391"
+          },
+          button: {
+            background: "#4b81e8"
+          },
+        },
+      });
+    });</script><script src="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/js/lightgallery.min.js" defer></script><script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js" defer></script><script>window.addEventListener("load", () => {
+            if (typeof $.fn.lightGallery === 'function') {
+                $('.article').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof $.fn.justifiedGallery === 'function') {
+                if ($('.justified-gallery > p > .gallery-item').length) {
+                    $('.justified-gallery > p > .gallery-item').unwrap();
+                }
+                $('.justified-gallery').justifiedGallery();
+            }
+        });</script><!--!--><!--!--><!--!--><!--!--><!--!--><script src="/js/main.js" defer></script><div class="searchbox"><div class="searchbox-container"><div class="searchbox-header"><div class="searchbox-input-container"><input class="searchbox-input" type="text" placeholder="想要查找什么..."></div><a class="searchbox-close" href="javascript:;">×</a></div><div class="searchbox-body"></div></div></div><script src="/js/insight.js" defer></script><script>document.addEventListener('DOMContentLoaded', function () {
+            loadInsight({"contentUrl":"/content.json"}, {"hint":"想要查找什么...","untitled":"(无标题)","posts":"文章","pages":"页面","categories":"分类","tags":"标签"});
+        });</script></body></html>

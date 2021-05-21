@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="zh"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta><title>分类: 性能 - 柒</title><link rel="manifest" href="/manifest.json"><meta name="application-name" content="柒"><meta name="msapplication-TileImage" content="/img/faviconcustom.svg"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="柒"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="description" content="时间"><meta property="og:type" content="blog"><meta property="og:title" content="柒"><meta property="og:url" content="https://micrqwe.gitee.io/"><meta property="og:site_name" content="柒"><meta property="og:description" content="时间"><meta property="og:locale" content="zh_CN"><meta property="og:image" content="https://micrqwe.gitee.io/img/og_image.png"><meta property="article:author" content="邵文星"><meta property="twitter:card" content="summary"><meta property="twitter:image" content="/img/og_image.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://micrqwe.gitee.io"},"headline":"柒","image":["https://micrqwe.gitee.io/img/og_image.png"],"author":{"@type":"Person","name":"邵文星"},"publisher":{"@type":"Organization","name":"柒","logo":{"@type":"ImageObject","url":"https://micrqwe.gitee.io/img/faviconcustom.svg"}},"description":"时间"}</script><link rel="icon" href="/img/faviconcustom.svg"><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.2/css/all.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-light.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;600&amp;family=Source+Code+Pro"><link rel="stylesheet" href="/css/default.css"><style>body>.footer,body>.navbar,body>.section{opacity:0}</style><!--!--><!--!--><!--!--><!--!--><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/css/lightgallery.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/css/justifiedGallery.min.css"><!--!--><!--!--><script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script><!--!--><!--!--><meta name="generator" content="Hexo 5.0.2"></head><body class="is-2-column"><nav class="navbar navbar-main"><div class="container"><div class="navbar-brand justify-content-center"><a class="navbar-item navbar-logo" href="/"><img src="/img/faviconcustom.svg" alt="柒" height="28"></a></div><div class="navbar-menu"><div class="navbar-start"><a class="navbar-item" href="/">Home</a><a class="navbar-item" href="/archives">Archives</a><a class="navbar-item" href="/categories">Categories</a><a class="navbar-item" href="/tags">Tags</a><a class="navbar-item" href="/about">About</a></div><div class="navbar-end"><a class="navbar-item" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/micrqwe"><i class="fab fa-github"></i></a><a class="navbar-item search" title="搜索" href="javascript:;"><i class="fas fa-search"></i></a></div></div></div></nav><section class="section"><div class="container"><div class="columns"><div class="column order-2 column-main is-8-tablet is-8-desktop is-8-widescreen"><div class="card"><div class="card-content"><nav class="breadcrumb" aria-label="breadcrumbs"><ul><li><a href="/categories">分类</a></li><li class="is-active"><a href="#" aria-current="page">性能</a></li></ul></nav></div></div><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time dateTime="2021-02-02T05:12:08.000Z" title="2/2/2021, 1:12:08 PM">2021-02-02</time>发表</span><span class="level-item"><time dateTime="2021-05-21T11:40:30.150Z" title="5/21/2021, 7:40:30 PM">2021-05-21</time>更新</span><span class="level-item"><a class="link-muted" href="/categories/%E6%80%A7%E8%83%BD/">性能</a></span><span class="level-item">13 分钟读完 (大约1909个字)</span></div></div><h1 class="title is-3 is-size-4-mobile"><a class="link-muted" href="/2021/02/02/2021/SpringCloud%E7%B3%BB%E7%BB%9F%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/">SpringCloud系统性能优化</a></h1><div class="content"><h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><ul>
+<li>需要对系统进行流程性测试，查找系统瓶颈点所在，当大流量来临能有效应对。现将优化处理方法进行梳理总结，供大家参考学习</li>
+</ul>
+<h2 id="系统参数"><a href="#系统参数" class="headerlink" title="系统参数"></a>系统参数</h2><table>
+<thead>
+<tr>
+<th>系统服务名</th>
+<th>服务器数量</th>
+<th>CPU(核)</th>
+<th>内存(G)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>nginx</td>
+<td>2</td>
+<td>4</td>
+<td>8</td>
+</tr>
+<tr>
+<td>gateway</td>
+<td>4</td>
+<td>8</td>
+<td>16</td>
+</tr>
+<tr>
+<td>course(不同服务器类型)</td>
+<td>2</td>
+<td>2</td>
+<td>4</td>
+</tr>
+<tr>
+<td>course(不同服务器类型)</td>
+<td>2</td>
+<td>8</td>
+<td>64</td>
+</tr>
+<tr>
+<td>user</td>
+<td>2</td>
+<td>2</td>
+<td>4</td>
+</tr>
+<tr>
+<td>login</td>
+<td>2</td>
+<td>2</td>
+<td>4</td>
+</tr>
+<tr>
+<td>数据库1</td>
+<td>1</td>
+<td>8</td>
+<td>16</td>
+</tr>
+<tr>
+<td>数据库2</td>
+<td>1</td>
+<td>8</td>
+<td>16</td>
+</tr>
+<tr>
+<td>redis</td>
+<td>1</td>
+<td>2</td>
+<td>2</td>
+</tr>
+</tbody></table>
+<ul>
+<li>服务器说明：在测试中有直连进行测试，实际测试某一个服务中，未全部使用服务器，会根据测试内容临时下线机器，具体方案会在后续说到。</li>
+<li>启动参数中：gateway使用内存配置为4g。 其他应用服务启动参数内存为2g</li>
+</ul>
+<h2 id="压测优化点内容"><a href="#压测优化点内容" class="headerlink" title="压测优化点内容"></a>压测优化点内容</h2><h3 id="gateway优化项"><a href="#gateway优化项" class="headerlink" title="gateway优化项"></a>gateway优化项</h3><ul>
+<li><p>网关核心功能</p>
+<ul>
+<li>路由转发</li>
+<li>流量计算/限流</li>
+<li>统一登录验证</li>
+</ul>
+</li>
+<li><p>spring cloud gateway文档：<a target="_blank" rel="noopener" href="https://docs.spring.io/spring-cloud-gateway/docs/2.2.6.RELEASE/reference/html/#gateway-starter">https://docs.spring.io/spring-cloud-gateway/docs/2.2.6.RELEASE/reference/html/#gateway-starter</a></p>
+</li>
+<li><p>-Dreactor.netty.ioWorkerCount=64</p>
+<p>问题1：线程数量设置过小。</p>
+<ol>
+<li>被压测接口：返回当前系统时间。接口响应平均响应时间在1毫秒不到</li>
+<li>压测方法：直连tomcat压测，和通过gateway在连接对比压测</li>
+<li>压测QPS：tomcat直连：3W+ 。 gateway链接：1500+</li>
+<li>说明：gateway有进行redis的登录验证操作，耗时在2、3毫秒左右，redis的瓶颈在1W左右</li>
+<li>压测过程中，对比后发现gateway服务器的cpu利用率很低，对比发现属于redis验证阻塞了主线程，导致请求无法及时转发。</li>
+<li>gateway使用reactor netty进行作为转发框架。默认设置为cpu数量同等线程数，但只适合cpu密集型任务，对于路由转发任务需要调高线程数量，以便于提高cpu利用率<br>参考文章：<a target="_blank" rel="noopener" href="https://blog.csdn.net/trecn001/article/details/107286396">https://blog.csdn.net/trecn001/article/details/107286396</a></li>
+</ol>
+<p>问题2：登录验证redis存在大key</p>
+<ol>
+<li>被压测接口：同问题1一致</li>
+<li>压测方法：同问题1一致</li>
+<li>压测QPS：同问题1一致</li>
+<li>说明：同问题1一致</li>
+<li>经过解决问题1后，QPS依然维持在1W左右，通过计算，用户登录后存储在redis中字节数为1388个字节，redis带宽为128Mbit/s。换算后redis的带宽瓶颈为QPS：1W+。去掉中间程序因素，只能维持在1w左右</li>
+<li>追踪程序后，用户登录使用的为jwt验证。会将用户所有数据进行加密存储为accessToken和一个refreshToken。<br>参考文章：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/ruoruchujian/p/11271285.html">https://www.cnblogs.com/ruoruchujian/p/11271285.html</a></li>
+<li>redis存储信息包含：用户id，用户类型，accessToken,refreshToken,deviceId,jti。同时：根据jwt的规则accessToken加密串已经包含了所有的信息，所以不需要在单独存储。同时查看目前系统登录逻辑refreshToken暂时并没有使用，只是用于一个扩展项。</li>
+<li>对登录用户信息进行优化，redis不在存储refreshToken，同时对加密token进行字段缩减。只放入userId，deviceId必要字段，加密串大大减少。缩减后剩余388个字节。redis带宽可同步增长3~4倍</li>
+</ol>
+</li>
+</ul>
+<h3 id="应用服务优化项"><a href="#应用服务优化项" class="headerlink" title="应用服务优化项"></a>应用服务优化项</h3><ol>
+<li><p><a href="">spring actuator至性能衰减</a></p>
+</li>
+<li><p><a href="">华为云redis查询QPS过低排查</a></p>
+</li>
+<li><p><a href="">spring mvc transactional导致性能瓶颈</a></p>
+</li>
+<li><p>应用服务tomcat连接数配置,此项不作说明，需要根据业务系统来定</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">server.tomcat.max-threads=300   // springboot默认是200</span><br><span class="line">server.tomcat.accept-count=200  // springboot默认是100</span><br><span class="line">server.tomcat.max-connections=8192  // springboot默认是8192 . 1024*8。</span><br><span class="line">server.tomcat.min-spare-threads=50   // springboot默认是10</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>hystrix使用信号量配置减少CPU上下文切换,此项不作说明，需要根据业务系统来定</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">1. 参考文章：https://blog.csdn.net/dap769815768/article/details/94630276</span><br><span class="line">2. 系统使用了okhttp，本身有配置相应线程池，不需要在使用hystrix进行线程池。以减少cpu争用</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<h3 id="优化总结"><a href="#优化总结" class="headerlink" title="优化总结"></a>优化总结</h3><ol>
+<li>在分布式系统中，需要定位问题点，问题点对应了才能进行解决。上面解决方案非常简单，但难点是定位到各个问题点。同时有可能是多不同问题点叠加产生瓶颈。</li>
+<li>定位问题中需要进行分解目标点,参考附录大致图中。以下是定位gateway网关的思路。其他接口也可以参照以下思路。使用排除法一步步测试<ul>
+<li>系统经过第一次的压测，将应用服务进行了优化。随后进行第二轮压测，定位至网关redis瓶颈和线程数。定位过程如下<ul>
+<li>在前面压测中，由于应用服务存在瓶颈点，一直未打满gateway，导致无法压测出gateway有瓶颈。本次进行全流程的压测，其中有一个响应在几毫秒内的接口。对比tomcat和网关后发现有巨大差异。</li>
+<li>压测中需要进行一步步排除差异，第一步：先进行了tomcat压测，排除nginx和gateway，第二步：直连其中一台gateway进行压测，排除nginx，第三步：外网域名压测。</li>
+<li>结果对比后第二步有巨大差异，而且波动很大。第三步由于nginx有2台，gateway有4台。在物理设备中有增加，但同时也同第一步的结果差异较大</li>
+<li>通过第二步对比tomcat和经过网关在转发的QPS数后,准备了一个不进行登录验证空接口进行测试（下文该接口记录为A），同时网关有进行登录验证，在准备一个需要登录验证的空接口（下文该接口记录为B）。</li>
+<li>直接进行tomcat压测，确定应用服务是否存在瓶颈点。对tomcat链接瓶颈疑问直连进行压测。确定tomcat参数正常，不存在相应瓶颈</li>
+<li>进行第二步操作细化，先使用了A接口进行压测。对比发现QPS相差较小，由于经过网关一层有相比较有下降，稍QPS少一点为正常现象。</li>
+<li>确定了A接口不存在问题。这时候在使用B接口进行测试，运行效果相差特别大。QPS有10的倍数下降。这时候可以确定为网关登录验证出现问题</li>
+<li>当前问题进行了细化，网关的登录验证产生瓶颈。这时候定位出2个问题。</li>
+<li>首先查看了redis瓶颈，通过监控发现redis没有瓶颈，带宽使用量也不高，那么就确定为redis的客户端也就是gateway存在其他瓶颈。</li>
+<li>首先对gateway的redis连接数进行优化，调高参数，进行再次压测。但调高参数发现并没有效果，同时调高的参数并没有被使用上。在细化后瓶颈点不在redis连接获取数据上</li>
+<li>对gateway的流程进行梳理，查看开启的线程数量为8个。同时经过跟踪后，redis的操作是在主线程进行。主线程数量不足导致的并发数无法提高</li>
+<li>提高主线程并发数量，QPS响应开始以倍数提高。最终测试通过</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<p>参考文章:<a target="_blank" rel="noopener" href="https://www.cnblogs.com/binyue/p/6141088.html">https://www.cnblogs.com/binyue/p/6141088.html</a></p>
+</div></article></div><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time dateTime="2021-01-23T01:12:08.000Z" title="1/23/2021, 9:12:08 AM">2021-01-23</time>发表</span><span class="level-item"><time dateTime="2021-05-21T11:40:22.141Z" title="5/21/2021, 7:40:22 PM">2021-05-21</time>更新</span><span class="level-item"><a class="link-muted" href="/categories/%E6%80%A7%E8%83%BD/">性能</a></span><span class="level-item">几秒读完 (大约57个字)</span></div></div><h1 class="title is-3 is-size-4-mobile"><a class="link-muted" href="/2021/01/23/2021/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/">性能优化</a></h1><div class="content"><ul>
+<li><p>spring mvc transactional导致性能瓶颈</p>
+</li>
+<li><p>华为云redis带宽限制</p>
+</li>
+<li><p>spring actuator至性能瓶颈(<a target="_blank" rel="noopener" href="https://www.shuzhiduo.com/A/rV57PbN9dP/">https://www.shuzhiduo.com/A/rV57PbN9dP/</a>)</p>
+</li>
+<li><p>优化项：tomcat进行并发配置</p>
+</li>
+<li><p>hystrix信号量配置减少CPU上下文切换</p>
+</li>
+</ul>
+</div></article></div></div><div class="column column-left is-4-tablet is-4-desktop is-4-widescreen  order-1"><div class="card widget" data-type="profile"><div class="card-content"><nav class="level"><div class="level-item has-text-centered flex-shrink-1"><div><figure class="image is-128x128 mx-auto mb-2"><img class="avatar" src="/img/logoAvatar.png" alt="文星"></figure><p class="title is-size-4 is-block" style="line-height:inherit;">文星</p><p class="is-size-6 is-block">1024</p><p class="is-size-6 is-flex justify-content-center"><i class="fas fa-map-marker-alt mr-1"></i><span>中国浙江</span></p></div></div></nav><nav class="level is-mobile"><div class="level-item has-text-centered is-marginless"><div><p class="heading">文章</p><a href="/archives"><p class="title">90</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">分类</p><a href="/categories"><p class="title">2</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">标签</p><a href="/tags"><p class="title">12</p></a></div></div></nav><div class="level"><a class="level-item button is-primary is-rounded" href="https://github.com/micrqwe" target="_blank" rel="noopener">关注我</a></div><div class="level is-mobile is-multiline"><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Github" href="https://github.com/micrqwe"><i class="fab fa-github"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Facebook" href="https://micrqwe.gitee.io/"><i class="fab fa-facebook"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Twitter" href="https://micrqwe.gitee.io/"><i class="fab fa-twitter"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Dribbble" href="https://micrqwe.gitee.io/"><i class="fab fa-dribbble"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="RSS" href="/"><i class="fas fa-rss"></i></a></div></div></div><!--!--><div class="card widget" data-type="links"><div class="card-content"><div class="menu"><h3 class="menu-label">链接</h3><ul class="menu-list"><li><a class="level is-mobile" href="https://portal.dxy.cn/" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">丁香园</span></span><span class="level-right"><span class="level-item tag">portal.dxy.cn</span></span></a></li><li><a class="level is-mobile" href="https://leetcode-cn.com/" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">leetcode</span></span><span class="level-right"><span class="level-item tag">leetcode-cn.com</span></span></a></li></ul></div></div></div><div class="card widget" data-type="categories"><div class="card-content"><div class="menu"><h3 class="menu-label">分类</h3><ul class="menu-list"><li><a class="level is-mobile" href="/categories/spring/"><span class="level-start"><span class="level-item">spring</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/categories/%E6%80%A7%E8%83%BD/"><span class="level-start"><span class="level-item">性能</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li></ul></div></div></div><div class="card widget" data-type="recent-posts"><div class="card-content"><h3 class="menu-label">最新文章</h3><article class="media"><div class="media-content"><p class="date"><time dateTime="2021-05-21T01:40:08.000Z">2021-05-21</time></p><p class="title"><a href="/2021/05/21/2021/springmvc%E5%90%AF%E5%8A%A8%E5%88%9D%E5%A7%8B%E5%8C%96%E8%BF%87%E7%A8%8B/">springmvc启动初始化过程</a></p><p class="categories"><a href="/categories/spring/">spring</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2021-05-11T11:47:08.000Z">2021-05-11</time></p><p class="title"><a href="/2021/05/11/2021/%E6%A0%91%E5%9E%8B%E7%BB%93%E6%9E%84%E5%92%8C%E7%AE%97%E6%B3%95%E5%BA%94%E7%94%A8/">树型结构数据与应用</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2021-05-10T09:30:08.000Z">2021-05-10</time></p><p class="title"><a href="/2021/05/10/2021/Mysql8%E5%88%9D%E5%A7%8B%E5%8C%96%E6%96%B0%E5%BB%BA%E5%BA%93/">Mysql8初始化新建库</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2021-05-06T12:34:08.000Z">2021-05-06</time></p><p class="title"><a href="/2021/05/06/2021/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AD%98%E5%82%A8%E6%A6%82%E5%BF%B5/">数据库存储概念</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2021-04-27T13:12:08.000Z">2021-04-27</time></p><p class="title"><a href="/2021/04/27/2021/%E9%9D%A2%E8%AF%95%E9%97%AE%E9%A2%98%E6%A6%82%E5%BF%B5%E7%90%86%E8%A7%A3/">概念理解</a></p></div></article></div></div><div class="card widget" data-type="archives"><div class="card-content"><div class="menu"><h3 class="menu-label">归档</h3><ul class="menu-list"><li><a class="level is-mobile" href="/archives/2021/05/"><span class="level-start"><span class="level-item">五月 2021</span></span><span class="level-end"><span class="level-item tag">4</span></span></a></li><li><a class="level is-mobile" href="/archives/2021/04/"><span class="level-start"><span class="level-item">四月 2021</span></span><span class="level-end"><span class="level-item tag">6</span></span></a></li><li><a class="level is-mobile" href="/archives/2021/03/"><span class="level-start"><span class="level-item">三月 2021</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/archives/2021/02/"><span class="level-start"><span class="level-item">二月 2021</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/archives/2021/01/"><span class="level-start"><span class="level-item">一月 2021</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2020/10/"><span class="level-start"><span class="level-item">十月 2020</span></span><span class="level-end"><span class="level-item tag">4</span></span></a></li><li><a class="level is-mobile" href="/archives/2020/08/"><span class="level-start"><span class="level-item">八月 2020</span></span><span class="level-end"><span class="level-item tag">3</span></span></a></li><li><a class="level is-mobile" href="/archives/2020/06/"><span class="level-start"><span class="level-item">六月 2020</span></span><span class="level-end"><span class="level-item tag">68</span></span></a></li></ul></div></div></div><div class="card widget" data-type="tags"><div class="card-content"><div class="menu"><h3 class="menu-label">标签</h3><div class="field is-grouped is-grouped-multiline"><div class="control"><a class="tags has-addons" href="/tags/grails-groovy/"><span class="tag">grails/groovy</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/java%E5%BC%80%E5%8F%91/"><span class="tag">java开发</span><span class="tag">27</span></a></div><div class="control"><a class="tags has-addons" href="/tags/java%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/"><span class="tag">java开发工具</span><span class="tag">11</span></a></div><div class="control"><a class="tags has-addons" href="/tags/linux/"><span class="tag">linux</span><span class="tag">6</span></a></div><div class="control"><a class="tags has-addons" href="/tags/nodeJs/"><span class="tag">nodeJs</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/xcode/"><span class="tag">xcode</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E5%8D%8F%E8%AE%AE-%E7%AE%97%E6%B3%95-%E6%95%B0%E6%8D%AE/"><span class="tag">协议/算法/数据</span><span class="tag">8</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E5%AD%98%E5%82%A8%E5%B1%82/"><span class="tag">存储层</span><span class="tag">10</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E5%BF%AB%E9%80%9F%E8%AE%BF%E9%97%AE/"><span class="tag">快速访问</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E6%BA%90%E7%A0%81%E8%A7%A3%E8%AF%BB/"><span class="tag">源码解读</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E7%AC%94%E8%AE%B0/"><span class="tag">笔记</span><span class="tag">21</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/"><span class="tag">网络基础</span><span class="tag">1</span></a></div></div></div></div></div></div><!--!--></div></div></section><footer class="footer"><div class="container"><div class="level"><div class="level-start"><a class="footer-logo is-block mb-2" href="/"><img src="/img/faviconcustom.svg" alt="柒" height="28"></a><p class="is-size-7"><span>&copy; 2021 邵文星</span>  Powered by <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> &amp; <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="noopener">Icarus</a></p></div><div class="level-end"><div class="field has-addons"><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Creative Commons" href="https://creativecommons.org/"><i class="fab fa-creative-commons"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/"><i class="fab fa-creative-commons-by"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus"><i class="fab fa-github"></i></a></p></div></div></div></div></footer><script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script><script>moment.locale("zh-CN");</script><script>var IcarusThemeSettings = {
+            article: {
+                highlight: {
+                    clipboard: true,
+                    fold: 'unfolded'
+                }
+            }
+        };</script><script src="/js/column.js"></script><script src="/js/animation.js"></script><a id="back-to-top" title="回到顶端" href="javascript:;"><i class="fas fa-chevron-up"></i></a><script src="/js/back_to_top.js" defer></script><!--!--><!--!--><!--!--><script src="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.js" defer></script><script>window.addEventListener("load", () => {
+      window.cookieconsent.initialise({
+        type: "info",
+        theme: "edgeless",
+        static: false,
+        position: "bottom-left",
+        content: {
+          message: "此网站使用Cookie来改善您的体验。",
+          dismiss: "知道了！",
+          allow: "允许使用Cookie",
+          deny: "拒绝",
+          link: "了解更多",
+          policy: "Cookie政策",
+          href: "https://www.cookiesandyou.com/",
+        },
+        palette: {
+          popup: {
+            background: "#edeff5",
+            text: "#838391"
+          },
+          button: {
+            background: "#4b81e8"
+          },
+        },
+      });
+    });</script><script src="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/js/lightgallery.min.js" defer></script><script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js" defer></script><script>window.addEventListener("load", () => {
+            if (typeof $.fn.lightGallery === 'function') {
+                $('.article').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof $.fn.justifiedGallery === 'function') {
+                if ($('.justified-gallery > p > .gallery-item').length) {
+                    $('.justified-gallery > p > .gallery-item').unwrap();
+                }
+                $('.justified-gallery').justifiedGallery();
+            }
+        });</script><!--!--><!--!--><!--!--><!--!--><!--!--><script src="/js/main.js" defer></script><div class="searchbox"><div class="searchbox-container"><div class="searchbox-header"><div class="searchbox-input-container"><input class="searchbox-input" type="text" placeholder="想要查找什么..."></div><a class="searchbox-close" href="javascript:;">×</a></div><div class="searchbox-body"></div></div></div><script src="/js/insight.js" defer></script><script>document.addEventListener('DOMContentLoaded', function () {
+            loadInsight({"contentUrl":"/content.json"}, {"hint":"想要查找什么...","untitled":"(无标题)","posts":"文章","pages":"页面","categories":"分类","tags":"标签"});
+        });</script></body></html>
