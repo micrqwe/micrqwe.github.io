@@ -2,6 +2,7 @@ id: 202006231110
 title: springmvc启动初始化过程
 date: 2021-05-21 09:40:08
 tags: "java开发"
+categories: spring
 ---------
 
 # springmvc
@@ -55,7 +56,7 @@ tags: "java开发"
            this.getInitParameter("param1")
         ```
     备注： 注意以上两者获取键值对的方式的区别，第一个必须获取ServletContext之后才能够获取，因为第一个的键值对属于整个应用，而第二个则是通过this获取，因为这里获取的键值对仅仅属于当前的Servlet。
-1. 启动一个WEB项目的时候,容器(如:Tomcat)会去读它的配置文件web.xml.读两个节点:<listener></listener>和 <context-param></context-param>
+  hexo new page categories1. 启动一个WEB项目的时候,容器(如:Tomcat)会去读它的配置文件web.xml.读两个节点:<listener></listener>和 <context-param></context-param>
 1. 紧接着,容器创建一个ServletContext(上下文),这个WEB项目所有部分都将共享这个上下文.
 1. 容器将<context-param></context-param>转化为键值对,并交给ServletContext.
 1. 容器创建<listener></listener>中的类实例,即创建监听.
