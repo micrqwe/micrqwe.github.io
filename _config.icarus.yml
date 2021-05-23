@@ -274,7 +274,8 @@ widgets:
         # Names and URLs of the sites
         links:
             丁香园: 'https://portal.dxy.cn/'
-            leetcode: 'https://leetcode-cn.com/'
+            wf: 'https://wf2311.github.io/'
+            xixincan: 'https://xixincan.github.io/'
     # Categories widget configurations
     -
         # Where should the widget be placed, left sidebar or right sidebar
