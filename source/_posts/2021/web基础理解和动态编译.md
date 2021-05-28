@@ -5,7 +5,7 @@ tags: "java开发"
 categories: spring
 ---------
 
-# springmvc中进行测试用例
+# web框架加载
 
 ## 过程记录
 
@@ -32,3 +32,9 @@ categories: spring
            2. gradle默认的编译目录不一致,有可能会导致热部署失效,注意检查一下.
         ```
     1. 使用三方工具arthas.优秀的一款工具,具体使用可以参照说明文档.
+    
+## springmvc和springboot以及servlet
+
+1. springmvc只是需要指定webapp路径
+2. springboot已经使用了servlet3.0+ 可以使用注解来进行,不要再配置web.xml
+3. 如果项目需要springboot但同时又需要web.xml的.更改springboot的注册方式(存疑)
