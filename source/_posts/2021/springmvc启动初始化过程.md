@@ -31,20 +31,24 @@ categories: spring
             <load-on-startup>1</load-on-startup>
         </servlet>
     ```
-* spring-mvc下的servlet中init-param可以省略掉。如果省略掉会默认使用：servlet-name的value值拼上servlet.xml。如上文则是:(spring-mvc-servlet.xml).查找路径需在WEB-INF下。和web.xml一致
-    ```aidl
-        类名：XmlWebApplicationContext
-        加载文件方法：
-        protected void loadBeanDefinitions(XmlBeanDefinitionReader reader) throws IOException {
-            String[] configLocations = getConfigLocations();
-            if (configLocations != null) {
-                for (String configLocation : configLocations) {
-                    reader.loadBeanDefinitions(configLocation);
+    * spring-mvc下的servlet中init-param可以省略掉。如果省略掉会默认使用：servlet-name的value值拼上servlet.xml。如上文则是:(spring-mvc-servlet.xml).查找路径需在WEB-INF下。和web.xml一致
+        ```aidl
+            类名：XmlWebApplicationContext
+            加载文件方法：
+            protected void loadBeanDefinitions(XmlBeanDefinitionReader reader) throws IOException {
+                String[] configLocations = getConfigLocations();
+                if (configLocations != null) {
+                    for (String configLocation : configLocations) {
+                        reader.loadBeanDefinitions(configLocation);
+                    }
                 }
             }
-        }
-    ```
-## 说明
+        ```
+## springmvc的差别(谁加载了context-param的参数?)
+
+1. servelt的init-param的contextConfigLocation是为了加载DispatcherServlet的. 而context-param参数 的applicationContext.xm是为了加载web程序需要加载的数据库等等配置。
+
+## 问题
 
 * 问题一：放context-param和init-param区别?
     1. Context-param（上下文参数），在这个元素中可以定义多个<param-name><param-value>组成的键值对，但是要注意这里定义的键值对作用于是application，而且在有些应用中会提前定义自己的键值对，所以可以通过这种方式配置某些技术，同时这里也可以自定义一些参数，然后在业务逻辑中使用。获取键值对的方式如下
@@ -56,7 +60,10 @@ categories: spring
            this.getInitParameter("param1")
         ```
     备注： 注意以上两者获取键值对的方式的区别，第一个必须获取ServletContext之后才能够获取，因为第一个的键值对属于整个应用，而第二个则是通过this获取，因为这里获取的键值对仅仅属于当前的Servlet。
-  hexo new page categories1. 启动一个WEB项目的时候,容器(如:Tomcat)会去读它的配置文件web.xml.读两个节点:<listener></listener>和 <context-param></context-param>
+
+## 流程
+
+1. 启动一个WEB项目的时候,容器(如:Tomcat)会去读它的配置文件web.xml.读两个节点:<listener></listener>和 <context-param></context-param>
 1. 紧接着,容器创建一个ServletContext(上下文),这个WEB项目所有部分都将共享这个上下文.
 1. 容器将<context-param></context-param>转化为键值对,并交给ServletContext.
 1. 容器创建<listener></listener>中的类实例,即创建监听.
