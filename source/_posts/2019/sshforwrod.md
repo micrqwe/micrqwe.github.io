@@ -4,27 +4,16 @@ tags: "笔记"
 ---------
 ## ssh转发使用代理
 ```
-http://bianbian.org/technology/264.html
-
-里有一些好用的网址，介绍ssh及其代理穿透防火墙的
-
-
-
 http://www.inet.no/dante/
 
 Dante -- Proxy communication solution
 
-
-
-ssh 是有端口转发功能的。（转）
-http://doc.linuxpk.com/80817.html
-
 ssh的三个强大的端口转发命令：
-
 QUOTE:
 ssh -C -f -N -g -L listen_port:DST_Host:DST_port user@Tunnel_Host
 ssh -C -f -N -g -R listen_port:DST_Host:DST_port user@Tunnel_Host
 ssh -C -f -N -g -D listen_port user@Tunnel_Host
+
 -f Fork into background after authentication.
 后台认证用户/密码，通常和-N连用，不用登录到远程主机。
 
@@ -80,6 +69,17 @@ ssh -L 8888:www.host.com:80-L 110:mail.host.com:110 \ 25:mail.host.com:25 user@h
 这个命令将自动把服务器的80，110，25端口映射到本机的8888，110和25端口 以上命令在ubuntu 9.10 上测试通过...
 
 ```
+
+## 样例
+* 样例内网穿透:ssh -CfNg -R 0.0.0.0:8080:127.0.0.1:8080 root@ip
+```text
+说明:A有公网IP. B是内网.执行上面的语句,访问外网8080端口时候,会穿透到内网上服务器的8080端口.
+备注:如果发现A服务器监听的是本地地址,只允许本地开放.那么需要修改A机器的ssh配置.
+1. vi /etc/ssh/sshd_config
+2. 打开 GatewayPort（删除前面的 # 号，将其设置为 yes）
+3. systemctl restart sshd
+```
+
 
 ## ssh对方机子非22端口
 ```
