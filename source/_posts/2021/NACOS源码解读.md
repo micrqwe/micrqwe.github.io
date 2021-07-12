@@ -42,6 +42,13 @@ jvm参数配置如下：
 -Ddb.user=nacos
 -Ddb.password=nacos
 ```
+
+## 编译源码jar包启动
+1. 选择nacos-distribution项目执行:mvn  clean install -Dmaven.test.skip=true -P release-nacos
+1. 选择对应的压缩包.进行传输
+1. 解压压缩包到bin目录:sh startup.sh -m standalone
+1. 修改链接数据等前往conf目录.
+
 3.  运行控制台页面
 ```$xslt
 http://localhost:8848/nacos/index.html#/login
