@@ -52,7 +52,7 @@ tags: "笔记"
    -e SSL_CERT_DIR="/container/certs" \
    -v /docker_volume/rancher_home/rancher:/var/lib/rancher \
    -v /docker_volume/rancher_home/auditlog:/var/log/auditlog \
-   --name rancher rancher/rancher
+   --name rancher rancher/rancher:v2.5-head
     ```
 1. 查看日志:
     ```text

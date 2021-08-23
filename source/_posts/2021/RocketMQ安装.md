@@ -37,7 +37,7 @@ tags: "笔记"
          # brokerIP1和brokerIP2默认获取本地ip地址,在云服务器上会获取内网ip地址,因此必须显式设置
            brokerIP1=192.168.0.x
            brokerIP2=192.168.0.x
-     > nohup sh bin/mqbroker -n 192.168.0.x:9876 -c conf/broker.conf &
+     > nohup sh bin/mqbroker -n 192.168.0.149:9876 -c conf/broker.conf &
      > tail -f ~/logs/rocketmqlogs/broker.log 
      The broker[%s, 172.30.30.233:10911] boot success...
    ```
