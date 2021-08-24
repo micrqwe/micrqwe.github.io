@@ -31,7 +31,7 @@ tags: "java开发"
     备注： Parallel Scavenge 收集器
         特点：属于新生代收集器也是采用复制算法的收集器，又是并行的多线程收集器（与ParNew收集器类似）。
         该收集器的目标是达到一个可控制的吞吐量。还有一个值得关注的点是：GC自适应调节策略(这就是为啥幸存区不是按照比例的来配置大小的原因)（与ParNew收集器最重要的一个区别）
-        GC自适应调节策略：Parallel Scavenge收集器可设置-XX:+UseAdptiveSizePolicy参数。当开关打开时不需要手动指定新生代的大小（-Xmn）、Eden与Survivor区的比例（-XX:SurvivorRation）、晋升老年代的对象年龄（-XX:PretenureSizeThreshold）等，虚拟机会根据系统的运行状况收集性能监控信息，动态设置这些参数以提供最优的停顿时间和最高的吞吐量，这种调节方式称为GC的自适应调节策略。
+        GC自适应调节策略：Parallel Scavenge收集器可设置-XX:+UseAdaptiveSizePolicy参数。当开关打开时不需要手动指定新生代的大小（-Xmn）、Eden与Survivor区的比例（-XX:SurvivorRation）、晋升老年代的对象年龄（-XX:PretenureSizeThreshold）等，虚拟机会根据系统的运行状况收集性能监控信息，动态设置这些参数以提供最优的停顿时间和最高的吞吐量，这种调节方式称为GC的自适应调节策略。
         Parallel Scavenge收集器使用两个参数控制吞吐量：
             XX:MaxGCPauseMillis 控制最大的垃圾收集停顿时间
             XX:GCRatio 直接设置吞吐量的大小。
@@ -57,6 +57,19 @@ tags: "java开发"
    ```
 * [附带截图](/imgs/WX20210823-201316.png)
 
+## jvm内存管理
+
+1. [Java_JVM参数-XX:MaxDirectMemorySize 与 两种 ByteBuffer: heap,direct ByteBuffer](https://www.cnblogs.com/laoqing/p/10380536.html)（参考：https://www.cnblogs.com/laoqing/p/10380536.html）
+1. ByteBuffer有两种:
+    * heap ByteBuffer -> -XX:Xmx
+        *  1.1、一种是heap ByteBuffer,该类对象分配在JVM的堆内存里面，直接由Java虚拟机负责垃圾回收； 
+    * direct ByteBuffer -> -XX:MaxDirectMemorySize
+        * 1.2、一种是direct ByteBuffer是通过jni在虚拟机外内存中分配的。通过jmap无法查看该快内存的使用情况。只能通过top来看它的内存使用情况。
+            * 1.2.1、JVM堆内存大小可以通过-Xmx来设置，同样的direct ByteBuffer可以通过-XX:MaxDirectMemorySize来设置，此参数的含义是当Direct ByteBuffer分配的堆外内存到达指定大小后，即触发Full GC。注意该值是有上限的，默认是64M，最大为sun.misc.VM.maxDirectMemory()，在程序中中可以获得-XX:MaxDirectMemorySize的设置的值。
+            * 1.2.2、没有配置MaxDirectMemorySize的，因此MaxDirectMemorySize的大小即等于-Xmx
+            * 1.2.3、Direct Memory的回收机制，Direct Memory是受GC控制的
+            * 1.2.4、对于使用Direct Memory较多的场景，需要注意下MaxDirectMemorySize的设置，避免-Xmx + Direct Memory超出物理内存大小的现象
+
 ## 常用参数说明
 * jvm一些常用参数
 ```text
@@ -66,7 +79,9 @@ tags: "java开发"
 -Xmn256m                                            ## 年轻代内存大小，整个JVM内存=年轻代 + 年老代 + 持久代
 -Xss256k                                            ## 设置每个线程的堆栈大小
 -XX:PermSize=256m                                   ## 持久代内存大小
--XX:MaxPermSize=256m                                ## 最大持久代内存大小
+-XX:MetaspaceSize=21m                               ## 最大持久代内存大小
+-XX:MaxMetaspaceSize=21m                            ## 最大可分配元空间
+-XX:MaxDirectMemorySize=21m                          ## 直接内存分配
 -XX:ReservedCodeCacheSize=256m                      ## 代码缓存，存储已编译方法生成的本地代码
 -XX:+UseCodeCacheFlushing                           ## 代码缓存满时，让JVM放弃一些编译代码
 -XX:+DisableExplicitGC                              ## 忽略手动调用GC, System.gc()的调用就会变成一个空调用，完全不触发GC
@@ -102,10 +117,10 @@ tags: "java开发"
 -Dfile.encoding=UTF-8
 -Duser.name=qhong
 
-NewRatio：3                                         ## 新生代与年老代的比例。比如为3，则新生代占堆的1/4，年老代占3/4。
-SurvivorRatio：8                                    ## 新生代中调整eden区与survivor区的比例，默认为8，即eden区为80%的大小，两个survivor分别为10%的大小。 
-PretenureSizeThreshold：10m                         ## 晋升年老代的对象大小。默认为0，比如设为10M，则超过10M的对象将不在eden区分配，而直接进入年老代。
-MaxTenuringThreshold：15                            ## 晋升老年代的最大年龄。默认为15，比如设为10，则对象在10次普通GC后将会被放入年老代。
+-XX:NewRatio=3                                         ## 新生代与年老代的比例。比如为3，则新生代占堆的1/4，年老代占3/4。
+-XX:SurvivorRatio=8                                    ## 新生代中调整eden区与survivor区的比例，默认为8，即eden区为80%的大小，两个survivor分别为10%的大小。 
+-XX:PretenureSizeThreshold=10m                         ## 晋升年老代的对象大小。默认为0，比如设为10M，则超过10M的对象将不在eden区分配，而直接进入年老代。
+-XX:MaxTenuringThreshold=15                            ## 晋升老年代的最大年龄。默认为15，比如设为10，则对象在10次普通GC后将会被放入年老代。
 -XX:MaxTenuringThreshold=0                          ## 垃圾最大年龄，如果设置为0的话,则年轻代对象不经过Survivor区,直接进入年老代，该参数只有在串行GC时才有效
 -XX:+HeapDumpBeforeFullGC                           ## 当JVM 执行 FullGC 前执行 dump
 -XX:+HeapDumpAfterFullGC                            ## 当JVM 执行 FullGC 后执行 dump
