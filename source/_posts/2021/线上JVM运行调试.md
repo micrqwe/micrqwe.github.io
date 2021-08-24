@@ -37,7 +37,27 @@ tags: "java开发"
             XX:GCRatio 直接设置吞吐量的大小。
 ```
 
- 
+## jvm更换垃圾收集器
+
+1. Serial（串行）收集器
+    1. -XX:+UseSerialGC
+1. Parallel（并行）收集器
+    1. -XX:+UseParallelGC -XX:+UseParallelOldGC
+1. CMS（并发）收集器
+    1. -XX:+UseParNewGC -XX:+UseConcMarkSweepGC
+1. 开启G1收集器的方式
+    1. -XX:+UseG1GC
+1. 组合说明
+   ```text
+       -XX:+UseParNewGC = ParNew + SerialOld这个组合已经很少用（在某些版本中已经废弃）
+       -XX:+UseConc(urrent)MarkSweepGC = ParNew + CMS + Serial Old
+       -XX:+UseParallelGC = Parallel Scavenge + Parallel Old (1.8默认) 【PS + SerialOld】
+       -XX:+UseParallelOldGC = Parallel Scavenge + Parallel Old
+       -XX:+UseG1GC = G1
+   ```
+* [附带截图](/imgs/WX20210823-201316.png)
+
+## 常用参数说明
 * jvm一些常用参数
 ```text
 -server                                             ## 服务器模式
