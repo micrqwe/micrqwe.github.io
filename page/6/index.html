@@ -267,6 +267,36 @@ keytool -import -alias akazam_email -file akazam_email.cer -keystore cacerts -tr
 <blockquote>
 </blockquote>
 <p>SOCKS    socksProxyHost    <none><br>socksProxyPort    1080</p>
+</div></article></div><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time dateTime="2020-06-23T03:10:08.000Z" title="6/23/2020, 11:10:08 AM">2020-06-23</time>发表</span><span class="level-item"><time dateTime="2021-05-21T12:17:00.664Z" title="5/21/2021, 8:17:00 PM">2021-05-21</time>更新</span><span class="level-item">2 分钟读完 (大约296个字)</span></div></div><h1 class="title is-3 is-size-4-mobile"><a class="link-muted" href="/2020/06/23/2019/linuxJstackJava/">jstack定位死循环代码</a></h1><div class="content"><h1 id="定位正在运行的程序死循环处-linux处使用"><a href="#定位正在运行的程序死循环处-linux处使用" class="headerlink" title="定位正在运行的程序死循环处(linux处使用)"></a>定位正在运行的程序死循环处(linux处使用)</h1><h2 id="查看java的pid"><a href="#查看java的pid" class="headerlink" title="查看java的pid"></a>查看java的pid</h2><ol>
+<li><p>ps -ef | grep java  或者使用 top<br>找到你的java程序的进程id, 定位 pid</p>
+</li>
+<li><p>top -Hp $pid<br>查看耗cpu时间最多的几个线程, 记录下线程的id.注：这里的进程是10进制的。</p>
+</li>
+<li><p>jstack $pid &gt; stack.log 生成dump文件。将上面线程的id换成16进制，加上0x$id 。查找dump出来的文件。就是该线程的堆栈信息</p>
+</li>
+<li><p>统计线程数量 ps -hH $pid| wc -l</p>
+<h2 id="cpu运行"><a href="#cpu运行" class="headerlink" title="cpu运行"></a>cpu运行</h2><p>top 按1键看每个数据,z 彩色  c是， f是</p>
+</li>
+<li><p>us是用户的，运行一些数据会飙升</p>
+</li>
+<li><p>sy系统调度资源</p>
+</li>
+<li><p>ni 运行已调整优先级的用户进程的CPU时间</p>
+</li>
+<li><p>id 空闲的，</p>
+</li>
+<li><p>wa 等待</p>
+</li>
+<li><p>hi  处理硬件中断的CPU时间</p>
+</li>
+<li><p>si  处理软件中断的CPU时间</p>
+</li>
+</ol>
+<p>场景1：java启动100个cpu密集型任务，在24核上处理，假设平均的分在每一核心上执行， us或者sy很高，us执行，sy调度。id和wa很低</p>
+<h2 id="查看程序占用端口"><a href="#查看程序占用端口" class="headerlink" title="查看程序占用端口"></a>查看程序占用端口</h2><ol>
+<li>linux : netstat -naop  </li>
+<li>windows:  netstat -ano |findstr 62045</li>
+</ol>
 </div></article></div><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time dateTime="2020-06-23T03:10:08.000Z" title="6/23/2020, 11:10:08 AM">2020-06-23</time>发表</span><span class="level-item"><time dateTime="2021-05-21T12:17:00.664Z" title="5/21/2021, 8:17:00 PM">2021-05-21</time>更新</span><span class="level-item">3 分钟读完 (大约472个字)</span></div></div><h1 class="title is-3 is-size-4-mobile"><a class="link-muted" href="/2020/06/23/2019/jvmXmSurvivor/">jvm的常用运行参数以及内存分配和垃圾收集器的工作</a></h1><div class="content"><h1 id="jvm的运行参数"><a href="#jvm的运行参数" class="headerlink" title="jvm的运行参数"></a>jvm的运行参数</h1><h2 id="jvm的配置参数"><a href="#jvm的配置参数" class="headerlink" title="jvm的配置参数"></a>jvm的配置参数</h2><ol>
 <li><p>-Xms40m //初始内存</p>
 </li>
@@ -300,36 +330,6 @@ keytool -import -alias akazam_email -file akazam_email.cer -keystore cacerts -tr
 <li>垃圾回收器</li>
 </ol>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"> 　 Concurrent Mark-Sweep GC ：CMS回收器</span><br><span class="line"> </span><br><span class="line">Mark Sweep Compact GC：    串行GC（Serial GC）</span><br><span class="line"> </span><br><span class="line">Parallel GC with 2 thread(s)： 并行GC（ParNew）</span><br></pre></td></tr></table></figure></li>
-</ol>
-</div></article></div><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time dateTime="2020-06-23T03:10:08.000Z" title="6/23/2020, 11:10:08 AM">2020-06-23</time>发表</span><span class="level-item"><time dateTime="2021-05-21T12:17:00.664Z" title="5/21/2021, 8:17:00 PM">2021-05-21</time>更新</span><span class="level-item">2 分钟读完 (大约296个字)</span></div></div><h1 class="title is-3 is-size-4-mobile"><a class="link-muted" href="/2020/06/23/2019/linuxJstackJava/">jstack定位死循环代码</a></h1><div class="content"><h1 id="定位正在运行的程序死循环处-linux处使用"><a href="#定位正在运行的程序死循环处-linux处使用" class="headerlink" title="定位正在运行的程序死循环处(linux处使用)"></a>定位正在运行的程序死循环处(linux处使用)</h1><h2 id="查看java的pid"><a href="#查看java的pid" class="headerlink" title="查看java的pid"></a>查看java的pid</h2><ol>
-<li><p>ps -ef | grep java  或者使用 top<br>找到你的java程序的进程id, 定位 pid</p>
-</li>
-<li><p>top -Hp $pid<br>查看耗cpu时间最多的几个线程, 记录下线程的id.注：这里的进程是10进制的。</p>
-</li>
-<li><p>jstack $pid &gt; stack.log 生成dump文件。将上面线程的id换成16进制，加上0x$id 。查找dump出来的文件。就是该线程的堆栈信息</p>
-</li>
-<li><p>统计线程数量 ps -hH $pid| wc -l</p>
-<h2 id="cpu运行"><a href="#cpu运行" class="headerlink" title="cpu运行"></a>cpu运行</h2><p>top 按1键看每个数据,z 彩色  c是， f是</p>
-</li>
-<li><p>us是用户的，运行一些数据会飙升</p>
-</li>
-<li><p>sy系统调度资源</p>
-</li>
-<li><p>ni 运行已调整优先级的用户进程的CPU时间</p>
-</li>
-<li><p>id 空闲的，</p>
-</li>
-<li><p>wa 等待</p>
-</li>
-<li><p>hi  处理硬件中断的CPU时间</p>
-</li>
-<li><p>si  处理软件中断的CPU时间</p>
-</li>
-</ol>
-<p>场景1：java启动100个cpu密集型任务，在24核上处理，假设平均的分在每一核心上执行， us或者sy很高，us执行，sy调度。id和wa很低</p>
-<h2 id="查看程序占用端口"><a href="#查看程序占用端口" class="headerlink" title="查看程序占用端口"></a>查看程序占用端口</h2><ol>
-<li>linux : netstat -naop  </li>
-<li>windows:  netstat -ano |findstr 62045</li>
 </ol>
 </div></article></div><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time dateTime="2020-06-23T03:10:08.000Z" title="6/23/2020, 11:10:08 AM">2020-06-23</time>发表</span><span class="level-item"><time dateTime="2021-05-21T12:17:00.665Z" title="5/21/2021, 8:17:00 PM">2021-05-21</time>更新</span><span class="level-item">5 分钟读完 (大约716个字)</span></div></div><h1 class="title is-3 is-size-4-mobile"><a class="link-muted" href="/2020/06/23/2019/log4j2InfoAndUse/">log4j2的使用和配置项说明</a></h1><div class="content"><h1 id="log4j2结合springboot"><a href="#log4j2结合springboot" class="headerlink" title="log4j2结合springboot"></a>log4j2结合springboot</h1><h2 id="初始化项目"><a href="#初始化项目" class="headerlink" title="初始化项目"></a>初始化项目</h2><ol>
 <li>pom文件引入<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">      &lt;dependency&gt;</span><br><span class="line">            &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</span><br><span class="line">            &lt;artifactId&gt;spring-boot-starter-log4j2&lt;/artifactId&gt;</span><br><span class="line">        &lt;/dependency&gt;</span><br><span class="line">-- 一下distuptor需要根据log4j2的配置。是否需要异步输入日志来判断</span><br><span class="line">        &lt;dependency&gt;</span><br><span class="line">            &lt;groupId&gt;com.lmax&lt;/groupId&gt;</span><br><span class="line">            &lt;artifactId&gt;disruptor&lt;/artifactId&gt;</span><br><span class="line">            &lt;version&gt;3.4.2&lt;/version&gt;</span><br><span class="line">        &lt;/dependency&gt;</span><br></pre></td></tr></table></figure></li>
