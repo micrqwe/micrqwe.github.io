@@ -103,6 +103,7 @@ tags: "java开发"
 -XX:+PrintHeapAtGC                                  ## 在进行GC的前后打印出堆的信息
 -XX:+PrintGCApplicationConcurrentTime               ## 输出GC之间运行了多少时间
 -XX:+PrintTenuringDistribution                      ## 参数观察各个Age的对象总大小
+-XX:+ParallelRefProcEnabled                         ## 默认为 false，并行的处理 Reference 对象，如 WeakReference，除非在 GC log 里出现 Reference 处理时间较长的日志，否则效果不会很明显。
 -XX:+PrintGCApplicationStoppedTime                  ## GC造成应用暂停的时间
 -Xloggc:../log/gc.log                               ## 指定GC日志文件的输出路径
 -ea                                                 ## 打开断言机制，jvm默认关闭

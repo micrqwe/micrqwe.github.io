@@ -14,8 +14,9 @@ ssh -C -f -N -g -L listen_port:DST_Host:DST_port user@Tunnel_Host
 ssh -C -f -N -g -R listen_port:DST_Host:DST_port user@Tunnel_Host
 ssh -C -f -N -g -D listen_port user@Tunnel_Host
 
--f Fork into background after authentication.
-后台认证用户/密码，通常和-N连用，不用登录到远程主机。
+-f 参数：表示连接成功后，转入后台运行。
+-N 参数：表示只连接远程主机，不打开远程shell；
+-T 参数：表示不为这个连接分配TTY；
 
 -p port Connect to this port. Server must be on the same port.
 被登录的ssd服务器的sshd服务端口。
