@@ -33,24 +33,6 @@
 </ol>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"> 　 Concurrent Mark-Sweep GC ：CMS回收器</span><br><span class="line"> </span><br><span class="line">Mark Sweep Compact GC：    串行GC（Serial GC）</span><br><span class="line"> </span><br><span class="line">Parallel GC with 2 thread(s)： 并行GC（ParNew）</span><br></pre></td></tr></table></figure></li>
 </ol>
-</div></article></div><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time dateTime="2020-06-23T03:10:08.000Z" title="6/23/2020, 11:10:08 AM">2020-06-23</time>发表</span><span class="level-item"><time dateTime="2021-05-21T12:17:00.665Z" title="5/21/2021, 8:17:00 PM">2021-05-21</time>更新</span><span class="level-item">1 分钟读完 (大约134个字)</span></div></div><h1 class="title is-3 is-size-4-mobile"><a class="link-muted" href="/2020/06/23/2019/log4juploadlog4j2/">log4j平滑升级log4j2</a></h1><div class="content"><h1 id="log4j升级"><a href="#log4j升级" class="headerlink" title="log4j升级"></a>log4j升级</h1><ul>
-<li>log4j在异步日志打印下性能极大提升，好处多多</li>
-</ul>
-<ol>
-<li><p>log4j2可以选择异步与同步日志打印.使用异步打印必须配置disruptor包</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">           &lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;com.lmax&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;disruptor&lt;/artifactId&gt;</span><br><span class="line">    &lt;version&gt;3.4.2&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>log4j2的xml配置中有AsyncLogger和Logger配置区别。Async就是异步配置</p>
-</li>
-<li><p>log4j2有包架构不匹配。当原有系统不方便需改时。可以使用桥接包</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">            &lt;groupId&gt;org.apache.logging.log4j&lt;/groupId&gt;</span><br><span class="line">            &lt;artifactId&gt;log4j-1.2-api&lt;/artifactId&gt;</span><br><span class="line">            &lt;version&gt;2.13.0&lt;/version&gt;</span><br><span class="line">        &lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>参考其他文章</p>
-<ul>
-<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/hujunzheng/p/9937097.html">log4j平稳升级</a></li>
-</ul>
-</li>
-</ol>
 </div></article></div><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time dateTime="2020-06-23T03:10:08.000Z" title="6/23/2020, 11:10:08 AM">2020-06-23</time>发表</span><span class="level-item"><time dateTime="2021-05-21T12:17:00.665Z" title="5/21/2021, 8:17:00 PM">2021-05-21</time>更新</span><span class="level-item">5 分钟读完 (大约716个字)</span></div></div><h1 class="title is-3 is-size-4-mobile"><a class="link-muted" href="/2020/06/23/2019/log4j2InfoAndUse/">log4j2的使用和配置项说明</a></h1><div class="content"><h1 id="log4j2结合springboot"><a href="#log4j2结合springboot" class="headerlink" title="log4j2结合springboot"></a>log4j2结合springboot</h1><h2 id="初始化项目"><a href="#初始化项目" class="headerlink" title="初始化项目"></a>初始化项目</h2><ol>
 <li>pom文件引入<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">      &lt;dependency&gt;</span><br><span class="line">            &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</span><br><span class="line">            &lt;artifactId&gt;spring-boot-starter-log4j2&lt;/artifactId&gt;</span><br><span class="line">        &lt;/dependency&gt;</span><br><span class="line">-- 一下distuptor需要根据log4j2的配置。是否需要异步输入日志来判断</span><br><span class="line">        &lt;dependency&gt;</span><br><span class="line">            &lt;groupId&gt;com.lmax&lt;/groupId&gt;</span><br><span class="line">            &lt;artifactId&gt;disruptor&lt;/artifactId&gt;</span><br><span class="line">            &lt;version&gt;3.4.2&lt;/version&gt;</span><br><span class="line">        &lt;/dependency&gt;</span><br></pre></td></tr></table></figure></li>
 <li>文档地址<a target="_blank" rel="noopener" href="https://docs.spring.io/spring-boot/docs/2.2.2.RELEASE/reference/htmlsingle/#boot-features-logging-format">springboot logger</a> 4.4.6章节</li>
@@ -70,6 +52,24 @@
 <h2 id="配置项说明"><a href="#配置项说明" class="headerlink" title="配置项说明"></a>配置项说明</h2><ol>
 <li>onMatch和onMismatch都有三个属性值，分别为Accept、DENY和NEUTRAL</li>
 <li>分别介绍这两个配置项的三个属性值：<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">onMatch=&quot;ACCEPT&quot; 表示匹配该级别及以上</span><br><span class="line">onMatch=&quot;DENY&quot; 表示不匹配该级别及以上</span><br><span class="line">onMatch=&quot;NEUTRAL&quot; 表示该级别及以上的，由下一个filter处理，如果当前是最后一个，则表示匹配该级别及以上</span><br><span class="line">onMismatch=&quot;ACCEPT&quot; 表示匹配该级别以下</span><br><span class="line">onMismatch=&quot;NEUTRAL&quot; 表示该级别及以下的，由下一个filter处理，如果当前是最后一个，则不匹配该级别以下的</span><br><span class="line">onMismatch=&quot;DENY&quot; 表示不匹配该级别以下的</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+</div></article></div><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time dateTime="2020-06-23T03:10:08.000Z" title="6/23/2020, 11:10:08 AM">2020-06-23</time>发表</span><span class="level-item"><time dateTime="2021-05-21T12:17:00.665Z" title="5/21/2021, 8:17:00 PM">2021-05-21</time>更新</span><span class="level-item">1 分钟读完 (大约134个字)</span></div></div><h1 class="title is-3 is-size-4-mobile"><a class="link-muted" href="/2020/06/23/2019/log4juploadlog4j2/">log4j平滑升级log4j2</a></h1><div class="content"><h1 id="log4j升级"><a href="#log4j升级" class="headerlink" title="log4j升级"></a>log4j升级</h1><ul>
+<li>log4j在异步日志打印下性能极大提升，好处多多</li>
+</ul>
+<ol>
+<li><p>log4j2可以选择异步与同步日志打印.使用异步打印必须配置disruptor包</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">           &lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;com.lmax&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;disruptor&lt;/artifactId&gt;</span><br><span class="line">    &lt;version&gt;3.4.2&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>log4j2的xml配置中有AsyncLogger和Logger配置区别。Async就是异步配置</p>
+</li>
+<li><p>log4j2有包架构不匹配。当原有系统不方便需改时。可以使用桥接包</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">            &lt;groupId&gt;org.apache.logging.log4j&lt;/groupId&gt;</span><br><span class="line">            &lt;artifactId&gt;log4j-1.2-api&lt;/artifactId&gt;</span><br><span class="line">            &lt;version&gt;2.13.0&lt;/version&gt;</span><br><span class="line">        &lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>参考其他文章</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/hujunzheng/p/9937097.html">log4j平稳升级</a></li>
+</ul>
 </li>
 </ol>
 </div></article></div><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time dateTime="2020-06-23T03:10:08.000Z" title="6/23/2020, 11:10:08 AM">2020-06-23</time>发表</span><span class="level-item"><time dateTime="2021-05-21T12:17:00.670Z" title="5/21/2021, 8:17:00 PM">2021-05-21</time>更新</span><span class="level-item">2 分钟读完 (大约302个字)</span></div></div><h1 class="title is-3 is-size-4-mobile"><a class="link-muted" href="/2020/06/23/2019/splashscreen/">android/cordova/splashscreen说明</a></h1><div class="content"><h1 id="配置说明"><a href="#配置说明" class="headerlink" title="配置说明"></a>配置说明</h1><ol>
