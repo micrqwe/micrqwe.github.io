@@ -12,7 +12,7 @@ tags: "笔记"
    ```text
     这里进行创建镜像,需要大小根据自己的需求制定,bs是区块,一个区块大小.count是10个块.
     ```
-1. losetup /dev/loop1 /root/disk1.img                                //           挂载硬盘为/dev/loop1
+1. losetup /dev/loop10 /root/disk1.img                                //           挂载硬盘为/dev/loop1
    ```text
     这里要自己查找一下可用的回环设备./dev/loop为linux的回环设备,losetup /dev/loop0~x.一个个试一下为空的就可以用.也可以直接fdisk -l查看哪个没有
     ```
@@ -21,7 +21,7 @@ tags: "笔记"
        格式化系统
     ```
 1. mkdir /test1                                                                  //                创建文件
-1. mount  /dev/loop1 /test1                                   //                挂载硬盘，/test1目录的容量为20M
+1. mount  /dev/loop10 /data                                   //                挂载硬盘，/test1目录的容量为20M
     ```text
     挂载设备
     ```

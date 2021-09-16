@@ -64,3 +64,28 @@ tags: "笔记"
 1. 高级选项中:网络是用主机网络
 1. rancher如果是1.5版本,网络选择桥接,方便单机中使用.
 备注: 端口映射的是使用的iptables,非docker的端口映射.这里选择是为了方便,使用其他类型需要做网络转发.
+
+## rancher重新安装
+
+```text
+docker stop $(docker ps -a -q)
+docker system prune -f
+docker volume rm $(docker volume ls -q)
+docker rm -f $(docker ps -a -q)
+rm -rf /etc/ceph \
+  /etc/cni \
+  /etc/kubernetes \
+  /opt/cni \
+  /opt/rke \
+  /run/secrets/kubernetes.io \
+  /run/calico \
+  /run/flannel \
+  /var/lib/calico \
+  /var/lib/etcd \
+  /var/lib/cni \
+  /var/lib/kubelet \
+  /var/lib/rancher/rke/log \
+  /var/log/containers \
+  /var/log/pods \
+```
+
