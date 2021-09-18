@@ -37,17 +37,28 @@ systemctl list-unit-files|grep enabled
 
 ## 登录后远程连接备注
 
+需要重新创建用户的:
 ```aidl
 设置允许远程连接。
 
-如果直接使用命令：GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY 'password'; 会提示一个语法错误，有人说是mysql8的分配权限不能带密码隐士创建账号了，要先创建账号再设置权限。也有的说8.0.11之后移除了grant 添加用户的功能。
+如果直接使用命令：GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY '123456'; 会提示一个语法错误，有人说是mysql8的分配权限不能带密码隐士创建账号了，要先创建账号再设置权限。也有的说8.0.11之后移除了grant 添加用户的功能。
 
 创建新用户 admin
 
 创建用户：CREATE USER 'admin'@'%' IDENTIFIED BY '123456';
 
 允许远程连接：GRANT ALL ON *.* TO 'admin'@'%';
-mysql8下面未经测试，使用 update user set host = '%'  where user = 'root'; 网上说可以修改
+```
+不创建用户:
+```text
+mysql8下试验通过的:
+use mysql
+
+update mysql.user set host = '%'  where user = 'root';
+
+FLUSH PRIVILEGES;
+
+GRANT ALL PRIVILEGES ON *.* TO 'root'@'%'WITH GRANT OPTION;
 ```
 
 ## 创建数据库
@@ -61,7 +72,7 @@ mysql8下面未经测试，使用 update user set host = '%'  where user = 'root
 1. mysqldump -u root -pmima [数据库表] > dbname.sql
     ```aidl
     mysqldump -u 用户名 -p 数据库名 表名> 导出的文件名 
-    导出一个数据库结构：mysqldump -u dbuser -p -d --add-drop-table dbname >d:/dbname_db.sql
+    导出一个数据库结构：mysqldump -u root -p -d --add-drop-table nacos_config >d:/nacos_config_db.sql
     ```
 1. 导入数据库
     ```aidl
