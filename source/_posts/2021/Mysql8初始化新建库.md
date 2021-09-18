@@ -70,15 +70,18 @@ GRANT ALL PRIVILEGES ON *.* TO 'root'@'%'WITH GRANT OPTION;
 ## 导出导出数据库
 
 1. mysqldump -u root -pmima [数据库表] > dbname.sql
-    ```aidl
-    mysqldump -u 用户名 -p 数据库名 表名> 导出的文件名 
-    导出一个数据库结构：mysqldump -u root -p -d --add-drop-table nacos_config >d:/nacos_config_db.sql
-    ```
+   ```text
+   1. 格式:mysqldump -u 用户名 -p 数据库名 表名> 导出的文件名 
+   2. 导出所有库:mysqldump -u root -proot --all-databases >/tmp/all.sql 
+   3. 导出几个:mysqldump -u root -proot --databases db1 db2 >/tmp/user.sql
+   4. 导出一个数据库结构：mysqldump -u root -proot  --skip-add-drop-table nacos_config >d:/nacos_config_db.sql
+   5. 只导出结构:加上 -d 
+   ```
 1. 导入数据库
-    ```aidl
+   ```text
     1. 常用source 命令
     2. 进入mysql数据库控制台:mysql -u root -p
     3. mysql>use 数据库
     4. 然后使用source命令，后面参数为脚本文件(如这里用到的.sql):mysql>source d:/dbname.sql 
-    ```
+   ```
   
