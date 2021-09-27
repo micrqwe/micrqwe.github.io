@@ -76,6 +76,7 @@ GRANT ALL PRIVILEGES ON *.* TO 'root'@'%'WITH GRANT OPTION;
    3. 导出几个:mysqldump -u root -proot --databases db1 db2 >/tmp/user.sql
    4. 导出一个数据库结构：mysqldump -u root -proot  --skip-add-drop-table nacos_config >d:/nacos_config_db.sql
    5. 只导出结构:加上 -d 
+   6. --skip-add-drop-table 导出的sql创建表之前都会drop 表.加上该参数会不加drop的sql
    ```
 1. 导入数据库
    ```text
