@@ -13,6 +13,25 @@
 <h2 id="自定义classloader"><a href="#自定义classloader" class="headerlink" title="自定义classloader"></a>自定义classloader</h2><ol>
 <li><a target="_blank" rel="noopener" href="https://code.aliyun.com/287507016/mywork/tree/master/java/src/main/java/com/test/classloader">代码链接</a></li>
 </ol>
+</div></article></div><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time dateTime="2020-06-23T03:10:08.000Z" title="6/23/2020, 11:10:08 AM">2020-06-23</time>发表</span><span class="level-item"><time dateTime="2021-05-21T12:17:00.661Z" title="5/21/2021, 8:17:00 PM">2021-05-21</time>更新</span><span class="level-item">2 分钟读完 (大约298个字)</span></div></div><h1 class="title is-3 is-size-4-mobile"><a class="link-muted" href="/2020/06/23/2019/javajniclass/">java使用jni调用本地</a></h1><div class="content"><h1 id="Java调用JNI"><a href="#Java调用JNI" class="headerlink" title="Java调用JNI"></a>Java调用JNI</h1><h2 id="调用过程"><a href="#调用过程" class="headerlink" title="调用过程"></a>调用过程</h2><ol>
+<li>首先需要java的方法需要native 做修饰。</li>
+<li>通过javac和javah生成.h文件。</li>
+<li>通过c++编程生成dll文件</li>
+<li>加载生成的DLL库文件.(后面代码详细讲解)</li>
+</ol>
+<h2 id="先看看java代码-分是否package-。这里是没有package的"><a href="#先看看java代码-分是否package-。这里是没有package的" class="headerlink" title="先看看java代码(分是否package)。这里是没有package的"></a>先看看java代码(分是否package)。这里是没有package的</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">import java.util.Map;</span><br><span class="line">public class NativeOfficeConverter &#123;</span><br><span class="line">    /**</span><br><span class="line">     * 将</span><br><span class="line">     * @param path 需要转换的文件路径</span><br><span class="line">     * @param outDir 输出的文件目录</span><br><span class="line">     * @return  转换后的文件目录</span><br><span class="line">     * key有3个: code  path imgPath</span><br><span class="line">     * code不等于200 转换失败。等于200 path转换后的目录，等于传入的outDir。imgPath等同于path。可自定义</span><br><span class="line">     */</span><br><span class="line">    public native Map&lt;String,String&gt; docToHtmlConvert(String path,String outDir);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol>
+<li>javac  -encoding UTF-8 NativeOfficeConverter.java</li>
+<li>javah NativeOfficeConverter  // 别加class后缀。 .h文件就生成了</li>
+</ol>
+<h2 id="有package的"><a href="#有package的" class="headerlink" title="有package的"></a>有package的</h2><ol>
+<li>javah com.test.NativeOfficeConverter  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">这个命令需要在同com平级的目录上执行，同时.h文件会生成在当前目录。javah中有一个-d可以指定。看help</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<h2 id="生成dll库"><a href="#生成dll库" class="headerlink" title="生成dll库"></a>生成dll库</h2><ol>
+<li>放入到java系统中<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">// 加载生成的DLL库文件</span><br><span class="line">static &#123;</span><br><span class="line">              // 2选1 load加载的是全路径。loadLibrary需要dll文件放入到系统环境变量中。预先已经加载</span><br><span class="line">    System.loadLibrary(&quot;LibJniTest&quot;);</span><br><span class="line">               System.load(&quot;LibJniTest&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ol>
 </div></article></div><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time dateTime="2020-06-23T03:10:08.000Z" title="6/23/2020, 11:10:08 AM">2020-06-23</time>发表</span><span class="level-item"><time dateTime="2021-05-21T12:17:00.661Z" title="5/21/2021, 8:17:00 PM">2021-05-21</time>更新</span><span class="level-item">2 分钟读完 (大约259个字)</span></div></div><h1 class="title is-3 is-size-4-mobile"><a class="link-muted" href="/2020/06/23/2019/javaDocToHtmlAndOffice/">java中doc转html,poi openoffice libreoffice</a></h1><div class="content"><h1 id="doc转html"><a href="#doc转html" class="headerlink" title="doc转html"></a>doc转html</h1><h2 id="POI，Office，libreoffice，openoffice"><a href="#POI，Office，libreoffice，openoffice" class="headerlink" title="POI，Office，libreoffice，openoffice"></a>POI，Office，libreoffice，openoffice</h2><ol>
 <li>linux中无法调用windows的office组件来进行转换。微软office组件解析最佳</li>
 <li>linux下libreoffice解析最佳</li>
@@ -39,25 +58,6 @@
 
 <ol start="3">
 <li>github连接地址:<a target="_blank" rel="noopener" href="https://github.com/sbraconnier/jodconverter">https://github.com/sbraconnier/jodconverter</a></li>
-</ol>
-</div></article></div><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time dateTime="2020-06-23T03:10:08.000Z" title="6/23/2020, 11:10:08 AM">2020-06-23</time>发表</span><span class="level-item"><time dateTime="2021-05-21T12:17:00.661Z" title="5/21/2021, 8:17:00 PM">2021-05-21</time>更新</span><span class="level-item">2 分钟读完 (大约298个字)</span></div></div><h1 class="title is-3 is-size-4-mobile"><a class="link-muted" href="/2020/06/23/2019/javajniclass/">java使用jni调用本地</a></h1><div class="content"><h1 id="Java调用JNI"><a href="#Java调用JNI" class="headerlink" title="Java调用JNI"></a>Java调用JNI</h1><h2 id="调用过程"><a href="#调用过程" class="headerlink" title="调用过程"></a>调用过程</h2><ol>
-<li>首先需要java的方法需要native 做修饰。</li>
-<li>通过javac和javah生成.h文件。</li>
-<li>通过c++编程生成dll文件</li>
-<li>加载生成的DLL库文件.(后面代码详细讲解)</li>
-</ol>
-<h2 id="先看看java代码-分是否package-。这里是没有package的"><a href="#先看看java代码-分是否package-。这里是没有package的" class="headerlink" title="先看看java代码(分是否package)。这里是没有package的"></a>先看看java代码(分是否package)。这里是没有package的</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">import java.util.Map;</span><br><span class="line">public class NativeOfficeConverter &#123;</span><br><span class="line">    /**</span><br><span class="line">     * 将</span><br><span class="line">     * @param path 需要转换的文件路径</span><br><span class="line">     * @param outDir 输出的文件目录</span><br><span class="line">     * @return  转换后的文件目录</span><br><span class="line">     * key有3个: code  path imgPath</span><br><span class="line">     * code不等于200 转换失败。等于200 path转换后的目录，等于传入的outDir。imgPath等同于path。可自定义</span><br><span class="line">     */</span><br><span class="line">    public native Map&lt;String,String&gt; docToHtmlConvert(String path,String outDir);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ol>
-<li>javac  -encoding UTF-8 NativeOfficeConverter.java</li>
-<li>javah NativeOfficeConverter  // 别加class后缀。 .h文件就生成了</li>
-</ol>
-<h2 id="有package的"><a href="#有package的" class="headerlink" title="有package的"></a>有package的</h2><ol>
-<li>javah com.test.NativeOfficeConverter  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">这个命令需要在同com平级的目录上执行，同时.h文件会生成在当前目录。javah中有一个-d可以指定。看help</span><br></pre></td></tr></table></figure>
-
-</li>
-</ol>
-<h2 id="生成dll库"><a href="#生成dll库" class="headerlink" title="生成dll库"></a>生成dll库</h2><ol>
-<li>放入到java系统中<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">// 加载生成的DLL库文件</span><br><span class="line">static &#123;</span><br><span class="line">              // 2选1 load加载的是全路径。loadLibrary需要dll文件放入到系统环境变量中。预先已经加载</span><br><span class="line">    System.loadLibrary(&quot;LibJniTest&quot;);</span><br><span class="line">               System.load(&quot;LibJniTest&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
 </ol>
 </div></article></div><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time dateTime="2020-06-23T03:10:08.000Z" title="6/23/2020, 11:10:08 AM">2020-06-23</time>发表</span><span class="level-item"><time dateTime="2021-05-21T12:17:00.662Z" title="5/21/2021, 8:17:00 PM">2021-05-21</time>更新</span><span class="level-item">9 分钟读完 (大约1300个字)</span></div></div><h1 class="title is-3 is-size-4-mobile"><a class="link-muted" href="/2020/06/23/2019/jenkins/">jenkins安装和gitlib hooks配置</a></h1><div class="content"><h1 id="jenkins安装"><a href="#jenkins安装" class="headerlink" title="jenkins安装"></a>jenkins安装</h1><ol>
 <li>docker pull xxx</li>
@@ -179,40 +179,6 @@ keytool -import -alias akazam_email -file akazam_email.cer -keystore cacerts -tr
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">可以说是流的去处（这里可以进行业务处理）</span><br></pre></td></tr></table></figure>
 </li>
 </ol>
-</div></article></div><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time dateTime="2020-06-23T03:10:08.000Z" title="6/23/2020, 11:10:08 AM">2020-06-23</time>发表</span><span class="level-item"><time dateTime="2021-05-21T12:17:00.664Z" title="5/21/2021, 8:17:00 PM">2021-05-21</time>更新</span><span class="level-item">3 分钟读完 (大约472个字)</span></div></div><h1 class="title is-3 is-size-4-mobile"><a class="link-muted" href="/2020/06/23/2019/jvmXmSurvivor/">jvm的常用运行参数以及内存分配和垃圾收集器的工作</a></h1><div class="content"><h1 id="jvm的运行参数"><a href="#jvm的运行参数" class="headerlink" title="jvm的运行参数"></a>jvm的运行参数</h1><h2 id="jvm的配置参数"><a href="#jvm的配置参数" class="headerlink" title="jvm的配置参数"></a>jvm的配置参数</h2><ol>
-<li><p>-Xms40m //初始内存</p>
-</li>
-<li><p>-Xmx256m //最大内存</p>
-</li>
-<li><p>-Xmn16m //最小内存</p>
-</li>
-<li><p>-XX:PermSize=128M  // 永久带的内存</p>
-</li>
-<li><p>-XX:MaxPermSize=256M  // 永久带的最大内存（一般默认64MB）</p>
-</li>
-<li><p>-XX:SurvivorRatio=8  // 新生代中Eden区域与Survivor区域的容量比值<br><img src="https://csdn-code.oss.aliyuncs.com/php-upload-images/20170414-2244-24247-9647/r_heap1.PNG" alt="jvm内存的分配图" title="jvm内存的分配图"></p>
-</li>
-<li><p>-XX:MaxTenuringThreshold=15 // 一般jvm默认值15 晋升到老年代的对象年龄，每个对象坚持一次MinorGC之后，年龄就增加1，当超过这个参数的值时就进入老年代</p>
-</li>
-</ol>
-<h2 id="jvm常用一些配置参数"><a href="#jvm常用一些配置参数" class="headerlink" title="jvm常用一些配置参数"></a>jvm常用一些配置参数</h2><ol>
-<li><p>GC参数</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">-XX:+PrintGC    每次触发GC的时候打印相关日志</span><br><span class="line"></span><br><span class="line">-XX:+PrintGCDetails    更详细的GC日志</span><br><span class="line"></span><br><span class="line">-XX:+PrintHeapAtGC    每次GC时打印堆的详细详细信息</span><br><span class="line"></span><br><span class="line">-XX:+PrintGCApplicationConcurrentTime    打印应用程序执行时间</span><br><span class="line"></span><br><span class="line">-XX:+PrintGCApplicationAtoppedTime    打印应用程序由GC引起的停顿时间</span><br><span class="line"></span><br><span class="line">-XX:+PrintReferenceGC    跟踪系统内的软引用，弱引用，虚引用和finallize队列。</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>类跟踪</p>
- <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">-verbose:class    跟踪类的加载和卸载</span><br><span class="line"></span><br><span class="line">-XX:+TraceClassLoading    单独跟踪类加载</span><br><span class="line"></span><br><span class="line">-XX:+TraceClassUnloading    单独跟踪类卸载</span><br><span class="line"></span><br><span class="line">-XX:+PrintClassHistogram    查看运行时类的分布情况，使用时在控制台按ctrl+break</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>系统参数查看</p>
- <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">-XX:+PrintVMOptions       运行时，打印jvm接受的命令行显式参数</span><br><span class="line"></span><br><span class="line">-XX:+PrintCommandLineFlags    打印传递jvm的显式和隐式参数</span><br><span class="line"></span><br><span class="line">-XX:+PrintFlagsFinal    打印所有系统参数值</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>堆</p>
- <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">-Xms    堆初始值</span><br><span class="line"></span><br><span class="line">-Xmx    堆最大可用值</span><br><span class="line"></span><br><span class="line">-Xmn    新生代大小，一般设为整个堆的1/3到1/4左右</span><br><span class="line"></span><br><span class="line">-XX:SurvivorRatio    设置新生代中eden区和from/to空间的比例关系n/1</span><br><span class="line"></span><br><span class="line">-XX:NewRatio    设置老年代与新生代的比</span><br></pre></td></tr></table></figure>
-
-<ol start="5">
-<li>垃圾回收器</li>
-</ol>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"> 　 Concurrent Mark-Sweep GC ：CMS回收器</span><br><span class="line"> </span><br><span class="line">Mark Sweep Compact GC：    串行GC（Serial GC）</span><br><span class="line"> </span><br><span class="line">Parallel GC with 2 thread(s)： 并行GC（ParNew）</span><br></pre></td></tr></table></figure></li>
-</ol>
 </div></article></div><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time dateTime="2020-06-23T03:10:08.000Z" title="6/23/2020, 11:10:08 AM">2020-06-23</time>发表</span><span class="level-item"><time dateTime="2021-05-21T12:17:00.663Z" title="5/21/2021, 8:17:00 PM">2021-05-21</time>更新</span><span class="level-item">21 分钟读完 (大约3192个字)</span></div></div><h1 class="title is-3 is-size-4-mobile"><a class="link-muted" href="/2020/06/23/2019/jvmDebug/">java性能调试工具</a></h1><div class="content"><h1 id="jvm中常用工具和命令"><a href="#jvm中常用工具和命令" class="headerlink" title="jvm中常用工具和命令"></a>jvm中常用工具和命令</h1><ol>
 <li><p>jstack – 如果Java程序崩溃生成core文件，jstack工具可以用来获得core文件的java stack和native stack的信息，从而可以轻松地知道java程序是如何崩溃和在程序何处发生问题。另外，jstack工具还可以附属到正在运行的java程序中，看到 当时运行的java程序的java stack和native stack的信息, 如果现在运行的java程序呈现hung的状态，jstack是非常有用的。目前只有在Solaris和Linux的JDK版本里面才有。</p>
 </li>
@@ -315,6 +281,40 @@ keytool -import -alias akazam_email -file akazam_email.cer -keystore cacerts -tr
 <blockquote>
 </blockquote>
 <p>SOCKS    socksProxyHost    <none><br>socksProxyPort    1080</p>
+</div></article></div><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time dateTime="2020-06-23T03:10:08.000Z" title="6/23/2020, 11:10:08 AM">2020-06-23</time>发表</span><span class="level-item"><time dateTime="2021-05-21T12:17:00.664Z" title="5/21/2021, 8:17:00 PM">2021-05-21</time>更新</span><span class="level-item">3 分钟读完 (大约472个字)</span></div></div><h1 class="title is-3 is-size-4-mobile"><a class="link-muted" href="/2020/06/23/2019/jvmXmSurvivor/">jvm的常用运行参数以及内存分配和垃圾收集器的工作</a></h1><div class="content"><h1 id="jvm的运行参数"><a href="#jvm的运行参数" class="headerlink" title="jvm的运行参数"></a>jvm的运行参数</h1><h2 id="jvm的配置参数"><a href="#jvm的配置参数" class="headerlink" title="jvm的配置参数"></a>jvm的配置参数</h2><ol>
+<li><p>-Xms40m //初始内存</p>
+</li>
+<li><p>-Xmx256m //最大内存</p>
+</li>
+<li><p>-Xmn16m //最小内存</p>
+</li>
+<li><p>-XX:PermSize=128M  // 永久带的内存</p>
+</li>
+<li><p>-XX:MaxPermSize=256M  // 永久带的最大内存（一般默认64MB）</p>
+</li>
+<li><p>-XX:SurvivorRatio=8  // 新生代中Eden区域与Survivor区域的容量比值<br><img src="https://csdn-code.oss.aliyuncs.com/php-upload-images/20170414-2244-24247-9647/r_heap1.PNG" alt="jvm内存的分配图" title="jvm内存的分配图"></p>
+</li>
+<li><p>-XX:MaxTenuringThreshold=15 // 一般jvm默认值15 晋升到老年代的对象年龄，每个对象坚持一次MinorGC之后，年龄就增加1，当超过这个参数的值时就进入老年代</p>
+</li>
+</ol>
+<h2 id="jvm常用一些配置参数"><a href="#jvm常用一些配置参数" class="headerlink" title="jvm常用一些配置参数"></a>jvm常用一些配置参数</h2><ol>
+<li><p>GC参数</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">-XX:+PrintGC    每次触发GC的时候打印相关日志</span><br><span class="line"></span><br><span class="line">-XX:+PrintGCDetails    更详细的GC日志</span><br><span class="line"></span><br><span class="line">-XX:+PrintHeapAtGC    每次GC时打印堆的详细详细信息</span><br><span class="line"></span><br><span class="line">-XX:+PrintGCApplicationConcurrentTime    打印应用程序执行时间</span><br><span class="line"></span><br><span class="line">-XX:+PrintGCApplicationAtoppedTime    打印应用程序由GC引起的停顿时间</span><br><span class="line"></span><br><span class="line">-XX:+PrintReferenceGC    跟踪系统内的软引用，弱引用，虚引用和finallize队列。</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>类跟踪</p>
+ <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">-verbose:class    跟踪类的加载和卸载</span><br><span class="line"></span><br><span class="line">-XX:+TraceClassLoading    单独跟踪类加载</span><br><span class="line"></span><br><span class="line">-XX:+TraceClassUnloading    单独跟踪类卸载</span><br><span class="line"></span><br><span class="line">-XX:+PrintClassHistogram    查看运行时类的分布情况，使用时在控制台按ctrl+break</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>系统参数查看</p>
+ <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">-XX:+PrintVMOptions       运行时，打印jvm接受的命令行显式参数</span><br><span class="line"></span><br><span class="line">-XX:+PrintCommandLineFlags    打印传递jvm的显式和隐式参数</span><br><span class="line"></span><br><span class="line">-XX:+PrintFlagsFinal    打印所有系统参数值</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>堆</p>
+ <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">-Xms    堆初始值</span><br><span class="line"></span><br><span class="line">-Xmx    堆最大可用值</span><br><span class="line"></span><br><span class="line">-Xmn    新生代大小，一般设为整个堆的1/3到1/4左右</span><br><span class="line"></span><br><span class="line">-XX:SurvivorRatio    设置新生代中eden区和from/to空间的比例关系n/1</span><br><span class="line"></span><br><span class="line">-XX:NewRatio    设置老年代与新生代的比</span><br></pre></td></tr></table></figure>
+
+<ol start="5">
+<li>垃圾回收器</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"> 　 Concurrent Mark-Sweep GC ：CMS回收器</span><br><span class="line"> </span><br><span class="line">Mark Sweep Compact GC：    串行GC（Serial GC）</span><br><span class="line"> </span><br><span class="line">Parallel GC with 2 thread(s)： 并行GC（ParNew）</span><br></pre></td></tr></table></figure></li>
+</ol>
 </div></article></div><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time dateTime="2020-06-23T03:10:08.000Z" title="6/23/2020, 11:10:08 AM">2020-06-23</time>发表</span><span class="level-item"><time dateTime="2021-05-21T12:17:00.664Z" title="5/21/2021, 8:17:00 PM">2021-05-21</time>更新</span><span class="level-item">2 分钟读完 (大约296个字)</span></div></div><h1 class="title is-3 is-size-4-mobile"><a class="link-muted" href="/2020/06/23/2019/linuxJstackJava/">jstack定位死循环代码</a></h1><div class="content"><h1 id="定位正在运行的程序死循环处-linux处使用"><a href="#定位正在运行的程序死循环处-linux处使用" class="headerlink" title="定位正在运行的程序死循环处(linux处使用)"></a>定位正在运行的程序死循环处(linux处使用)</h1><h2 id="查看java的pid"><a href="#查看java的pid" class="headerlink" title="查看java的pid"></a>查看java的pid</h2><ol>
 <li><p>ps -ef | grep java  或者使用 top<br>找到你的java程序的进程id, 定位 pid</p>
 </li>
