@@ -22,7 +22,7 @@ tags: "java开发"
  1. jmap -histo:live [pid]  
  
 * 查看gc的次数和频率
- 1. 使用jstat。参考文章:[java性能调试工具](https://docs.qq.com/sheet/DWWZ5WnNiSG5Yb1pl?tab=BB08J2)
+ 1. 使用jstat。参考文章:[java性能调试工具](/2020/06/23/2019/jvmDebug/)
  2. 在实际使用中发现如下的问题。后面在一篇文章有部分说明:[参考文章](https://blog.csdn.net/luzhensmart/article/details/82563734)
  ```aidl
     1. 新生代为680M。SurvivorRatio为8。也就是新生区544M，2个幸存区各68M。但结合线上的jmap和jstat中，这个使用内存量会变，幸存区实际再用低于68M，新生区会大于544。
