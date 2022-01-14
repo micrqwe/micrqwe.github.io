@@ -25,11 +25,11 @@ tags: "笔记"
     service docker restar
    ```
    
-## 安装2.5版本
+## 安装2.4版本
 
 * 官方中文文档:http://docs.rancher.cn/docs/rancher2.5/installation/other-installation-methods/single-node-docker/_index
 
-1. 安装rancher（v2.5）:直接通过docker镜像来运行我们的rancher，首先，先从镜像中心下载rancher镜像，如果是1.x系列的，镜像名为rancher/server，而2.x是rancher/rancher，我们使用2.x版本的，所以，执行如下命令即可：
+1. 安装rancher（v2.4）:直接通过docker镜像来运行我们的rancher，首先，先从镜像中心下载rancher镜像，如果是1.x系列的，镜像名为rancher/server，而2.x是rancher/rancher，我们使用2.x版本的，所以，执行如下命令即可：
     ```text
     docker pull rancher/rancher
     ```
@@ -45,15 +45,21 @@ tags: "笔记"
    ```
 1. 接下来我们启动rancher容器:(端口根据自己需要来定义.我这里有其他端口被占用了).2.5版本中docker需要提权加:--privileged
     ```text
+   复杂安装:
     docker run -d --privileged --restart=unless-stopped  \
    -p 8081:80 -p 8443:443 \
-   -e NO_PROXY="localhost,127.0.0.1,0.0.0.0,10.0.0.0/8,192.168.0.0/24,124.160.111.194" \
+   -e NO_PROXY="localhost,127.0.0.1,0.0.0.0,10.0.0.0/8,192.168.0.0/24," \
    -v /home/rancher/ssl:/container/certs \
    -e SSL_CERT_DIR="/container/certs" \
    -v /docker_volume/rancher_home/rancher:/var/lib/rancher \
    -v /docker_volume/rancher_home/auditlog:/var/log/auditlog \
-   --name rancher rancher/rancher:v2.5-head
+   --name rancher rancher/rancher:v2.4-head
+   简单安装:
+    docker run -d --privileged --restart=unless-stopped \
+    -p 8081:80 -p 8443:443 \
+    rancher/rancher:v2.4-head
     ```
+    
 1. 查看日志:
     ```text
      docker logs -f $ID
