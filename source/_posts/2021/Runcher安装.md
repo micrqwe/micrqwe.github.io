@@ -48,7 +48,7 @@ tags: "笔记"
    复杂安装:
     docker run -d --privileged --restart=unless-stopped  \
    -p 8081:80 -p 8443:443 \
-   -e NO_PROXY="localhost,127.0.0.1,0.0.0.0,10.0.0.0/8,192.168.0.0/24," \
+   -e NO_PROXY="localhost,127.0.0.1,0.0.0.0,10.0.0.0/8,192.168.0.0/24" \
    -v /home/rancher/ssl:/container/certs \
    -e SSL_CERT_DIR="/container/certs" \
    -v /docker_volume/rancher_home/rancher:/var/lib/rancher \
