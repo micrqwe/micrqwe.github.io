@@ -71,7 +71,10 @@
   <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">已关键字进行求值分数,在用优先级队列进行求TOP</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
-</div></article></div><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time dateTime="2021-04-19T01:12:08.000Z" title="4/19/2021, 9:12:08 AM">2021-04-19</time>发表</span><span class="level-item"><time dateTime="2021-12-31T10:37:19.299Z" title="12/31/2021, 6:37:19 PM">2021-12-31</time>更新</span><span class="level-item">16 分钟读完 (大约2443个字)</span></div></div><h1 class="title is-3 is-size-4-mobile"><a class="link-muted" href="/2021/04/19/2021/JVM%E8%BF%90%E8%A1%8C%E7%AE%A1%E7%90%86%E4%B8%8E%E8%B0%83%E8%AF%95/">线上JVM运行调试</a></h1><div class="content"><h1 id="jvm调试"><a href="#jvm调试" class="headerlink" title="jvm调试"></a>jvm调试</h1><h2 id="gc部分"><a href="#gc部分" class="headerlink" title="gc部分"></a>gc部分</h2><ul>
+</div></article></div><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time dateTime="2021-04-19T01:12:08.000Z" title="4/19/2021, 9:12:08 AM">2021-04-19</time>发表</span><span class="level-item"><time dateTime="2022-02-06T08:32:36.102Z" title="2/6/2022, 4:32:36 PM">2022-02-06</time>更新</span><span class="level-item">17 分钟读完 (大约2479个字)</span></div></div><h1 class="title is-3 is-size-4-mobile"><a class="link-muted" href="/2021/04/19/2021/JVM%E8%BF%90%E8%A1%8C%E7%AE%A1%E7%90%86%E4%B8%8E%E8%B0%83%E8%AF%95/">线上JVM运行调试</a></h1><div class="content"><h1 id="jvm调试"><a href="#jvm调试" class="headerlink" title="jvm调试"></a>jvm调试</h1><h2 id="个人常用的配置-jdk8"><a href="#个人常用的配置-jdk8" class="headerlink" title="个人常用的配置(jdk8)"></a>个人常用的配置(jdk8)</h2><ol>
+<li>-XX:+UseG1GC -XX:+DisableExplicitGC -XX:MaxTenuringThreshold=10 -XX:+ParallelRefProcEnabled -XX:+AlwaysPreTouch -Dcom.sun.management.jmxremote.port=9000 -Dcom.sun.management.jmxremote.ssl=false -Dcom.sun.management.jmxremote.authenticate=false<h2 id="gc部分"><a href="#gc部分" class="headerlink" title="gc部分"></a>gc部分</h2></li>
+</ol>
+<ul>
 <li><p>jvm的垃圾收集器状态</p>
 <ol>
 <li>jmap -heap [pid]<ul>
