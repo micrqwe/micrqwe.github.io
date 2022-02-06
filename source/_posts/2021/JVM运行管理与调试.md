@@ -6,6 +6,8 @@ tags: "java开发"
 
 # jvm调试
 
+## 个人常用的配置(jdk8)
+1. -XX:+UseG1GC -XX:+DisableExplicitGC -XX:MaxTenuringThreshold=10 -XX:+ParallelRefProcEnabled -XX:+AlwaysPreTouch -Dcom.sun.management.jmxremote.port=9000 -Dcom.sun.management.jmxremote.ssl=false -Dcom.sun.management.jmxremote.authenticate=false
 ## gc部分
 
 * jvm的垃圾收集器状态

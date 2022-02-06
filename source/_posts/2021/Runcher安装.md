@@ -25,7 +25,7 @@ tags: "笔记"
     service docker restar
    ```
    
-## 安装2.4版本
+## 安装2.5版本
 
 * 官方中文文档:http://docs.rancher.cn/docs/rancher2.5/installation/other-installation-methods/single-node-docker/_index
 
@@ -35,11 +35,11 @@ tags: "笔记"
     ```
 1. 执行如下命令，在宿主机创建两个挂载目录.(根据情况来使用,就只看看不用了);
     ```text
-     mkdir -p /docker_volume/rancher_home/rancher
+     mkdir -p c
      mkdir -p /docker_volume/rancher_home/auditlog
      mkdir -p /home/rancher/ssl
     ```
-1. 生成签名证书:http://docs.rancher.cn/docs/rancher2/installation/resources/advanced/self-signed-ssl/_index
+1. 生成签名证书:openssl x509 -in tls.crt -noout -text
    ```text
      官方文档有很好的解决
    ```
@@ -48,18 +48,17 @@ tags: "笔记"
    复杂安装:
     docker run -d --privileged --restart=unless-stopped  \
    -p 8081:80 -p 8443:443 \
-   -e NO_PROXY="localhost,127.0.0.1,0.0.0.0,10.0.0.0/8,192.168.0.0/24" \
+   -e NO_PROXY="localhost,127.0.0.1,0.0.0.0,10.0.0.0/8" \
    -v /home/rancher/ssl:/container/certs \
    -e SSL_CERT_DIR="/container/certs" \
    -v /docker_volume/rancher_home/rancher:/var/lib/rancher \
    -v /docker_volume/rancher_home/auditlog:/var/log/auditlog \
-   --name rancher rancher/rancher:v2.4-head
+   --name rancher rancher/rancher:v2.5.12
    简单安装:
     docker run -d --privileged --restart=unless-stopped \
     -p 8081:80 -p 8443:443 \
-    rancher/rancher:v2.4-head
+    rancher/rancher:v2.5.12
     ```
-    
 1. 查看日志:
     ```text
      docker logs -f $ID
