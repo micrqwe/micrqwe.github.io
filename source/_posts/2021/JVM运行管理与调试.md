@@ -7,14 +7,27 @@ tags: "java开发"
 # jvm调试
 
 ## 个人常用的配置(jdk8)
-1. -XX:+UseG1GC -XX:+DisableExplicitGC -XX:MaxTenuringThreshold=10 -XX:+ParallelRefProcEnabled -XX:+AlwaysPreTouch -Dcom.sun.management.jmxremote.port=9000 -Dcom.sun.management.jmxremote.ssl=false -Dcom.sun.management.jmxremote.authenticate=false
+1. -Xms4g -Xmx4g -XX:+UseG1GC -XX:+DisableExplicitGC -XX:MaxTenuringThreshold=10 -XX:+ParallelRefProcEnabled -XX:+AlwaysPreTouch -Dcom.sun.management.jmxremote.port=9000 -Dcom.sun.management.jmxremote.ssl=false -Dcom.sun.management.jmxremote.authenticate=false
 ## gc部分
 
 * jvm的垃圾收集器状态
   1. jmap -heap [pid]
     * 参考文章:[内存分配和垃圾收集器](/2020/06/23/2019/jvmXmSurvivor/)
-    ```aidl
-      前面几行中标记有使用的垃圾收集器，以及目前各个分代中的使用和剩余
+    ```
+     1. 前面几行中标记有使用的垃圾收集器，以及目前各个分代中的使用和剩余.　
+     2. Concurrent Mark-Sweep GC ：CMS回收器
+     3. Mark Sweep Compact GC：    串行GC（Serial GC）
+     4. Parallel GC with 2 thread(s)： 并行GC（ParNew）
+            下面备注说的意思: JDK 7U4 后有serial old被直接替换
+            备注:https://blog.csdn.net/youanyyou/article/details/106464291
+            在 JDK 8 的官网找到了一些蛛丝马迹
+            链接：https://urlify.cn/67NnEz
+            Parallel compaction is enabled by default if the option -XX:+UseParallelGC has been specified. The option to turn it off is -XX:-UseParallelOldGC.
+            大致意思就是说-XX:+UseParallelGC就会开始Parallel收集器除非手动关闭，那么可是书上为什么说是Serial呢？
+            终于我在 JDK 源码 commit 记录里面找到了答案，在 JDK 7U4 之前确实 UserParallelGC 用的就是 Serial，在这个版本之后 Parallel 已经很成熟了，所以直接替换了旧的收集器，所以 JDK 7u4 以后的 7 和 JDK 8 老年代默认使用的都是 Parallel 收集器，只是书中没有更新这个细节。
+            网址：
+            https://bugs.openjdk.java.net/browse/JDK-6679764
+            http://hg.openjdk.java.net/jdk8u/jdk8u/hotspot/rev/24cae3e4cbaa
     ```
 
 * jvm dump堆文件
