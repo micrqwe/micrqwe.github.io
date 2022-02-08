@@ -36,23 +36,25 @@ tags: "笔记"
 1. 执行如下命令，在宿主机创建两个挂载目录.(根据情况来使用,就只看看不用了);
     ```text
      mkdir -p c
-     mkdir -p /docker_volume/rancher_home/auditlog
-     mkdir -p /home/rancher/ssl
+     mkdir -p /data/rancher_home/auditlog
+     mkdir -p /data/rancher_home/rancher
+     mkdir -p /data/rancher_home/ssl
     ```
 1. 生成签名证书:openssl x509 -in tls.crt -noout -text
    ```text
      官方文档有很好的解决
    ```
+  
 1. 接下来我们启动rancher容器:(端口根据自己需要来定义.我这里有其他端口被占用了).2.5版本中docker需要提权加:--privileged
     ```text
    复杂安装:
     docker run -d --privileged --restart=unless-stopped  \
    -p 8081:80 -p 8443:443 \
    -e NO_PROXY="localhost,127.0.0.1,0.0.0.0,10.0.0.0/8" \
-   -v /home/rancher/ssl:/container/certs \
+   -v /data/rancher_home/ssl:/container/certs \
    -e SSL_CERT_DIR="/container/certs" \
-   -v /docker_volume/rancher_home/rancher:/var/lib/rancher \
-   -v /docker_volume/rancher_home/auditlog:/var/log/auditlog \
+   -v /data/rancher_home/rancher:/var/lib/rancher \
+   -v /data/rancher_home/auditlog:/var/log/auditlog \
    --name rancher rancher/rancher:v2.5.12
    简单安装:
     docker run -d --privileged --restart=unless-stopped \
