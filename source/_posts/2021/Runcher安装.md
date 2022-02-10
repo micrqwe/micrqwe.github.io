@@ -11,7 +11,7 @@ tags: "笔记"
 
 1. 镜像地址:https://hub.docker.com/r/rancher/server
 2. 启动docker:docker run -d --restart=unless-stopped -p 8082:8080 --name rancher1.6  rancher/server
-
+   autossh -M 8818  -CfNg -o "StrictHostKeyChecking=false" -o "ServerAliveInterval=60"  -R 8081:127.0.0.1:8081 -R 8443:127.0.0.1:8443 root@10.1.1.202
 * 问题
   1. 添加主机的时候,如果是单机版本,住下docker-agent的dns错误.可参考下面: https://github.com/rancher/rancher/issues/1108
   ```text
