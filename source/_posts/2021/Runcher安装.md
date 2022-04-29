@@ -35,7 +35,6 @@ tags: "笔记"
     ```
 1. 执行如下命令，在宿主机创建两个挂载目录.(根据情况来使用,就只看看不用了);
     ```text
-     mkdir -p c
      mkdir -p /data/rancher_home/auditlog
      mkdir -p /data/rancher_home/rancher
      mkdir -p /data/rancher_home/ssl
@@ -96,3 +95,11 @@ rm -rf /etc/ceph \
   /var/log/pods \
 ```
 
+# docker常见
+1. docker info  // 查看docker的安装信息
+2. docker system df   // 查看资源使用
+3. docker image prune -a -f // 删除无效镜像
+3. docker container prune -f // 删除无效容器
+1. docker volume rm $(docker volume ls -qf dangling=true)   // 删除所有dangling数据卷（即无用的volume）
+
+   
