@@ -42,6 +42,7 @@ tags: "笔记"
 1. 生成签名证书:openssl x509 -in tls.crt -noout -text
    ```text
      官方文档有很好的解决
+     http://docs.rancher.cn/docs/rancher2.5/installation/resources/advanced/self-signed-ssl/_index
    ```
   
 1. 接下来我们启动rancher容器:(端口根据自己需要来定义.我这里有其他端口被占用了).2.5版本中docker需要提权加:--privileged
