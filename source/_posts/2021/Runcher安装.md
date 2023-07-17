@@ -59,6 +59,7 @@ tags: "笔记"
    简单安装:
     docker run -d --privileged --restart=unless-stopped \
     -p 8081:80 -p 8443:443 \
+    --name rancher  \
     rancher/rancher:v2.5.12
     ```
 1. 查看日志:
