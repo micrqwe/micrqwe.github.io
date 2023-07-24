@@ -58,7 +58,16 @@ categories: 性能
 ### 应用服务优化项
 
 1. [spring actuator至性能衰减]()
+  ```
+    1. https://www.shuzhiduo.com/A/rV57PbN9dP/
+    2. 由于actuator会注入很多*号的url。这时候程序使用PathVariable ，会造成很多次的无效匹配
+    3. 解决：actuator声明一些需要使用的端点，不要使用*号进行
+  ```
 1. [华为云redis查询QPS过低排查]()
+  ```
+    1. redis带宽不足
+    2. 程序的并发高，同时用户存储了所有数据，占用大量带宽
+  ```
 1. [spring mvc transactional导致性能瓶颈]()
 1. 应用服务tomcat连接数配置,此项不作说明，需要根据业务系统来定
 ```
