@@ -7,7 +7,7 @@
 <li>tomcat配置线程不是轮询分配，相对轮询分配。</li>
 <li>dubbo链接超出配置线程数后会立即返回失败</li>
 </ol>
-</div></article></div><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time dateTime="2021-02-02T05:12:08.000Z" title="2/2/2021, 1:12:08 PM">2021-02-02</time>发表</span><span class="level-item"><time dateTime="2023-07-17T06:48:34.747Z" title="7/17/2023, 2:48:34 PM">2023-07-17</time>更新</span><span class="level-item"><a class="link-muted" href="/categories/%E6%80%A7%E8%83%BD/">性能</a></span><span class="level-item">13 分钟读完 (大约1909个字)</span></div></div><h1 class="title is-3 is-size-4-mobile"><a class="link-muted" href="/2021/02/02/2021/SpringCloud%E7%B3%BB%E7%BB%9F%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/">SpringCloud系统性能优化</a></h1><div class="content"><h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><ul>
+</div></article></div><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time dateTime="2021-02-02T05:12:08.000Z" title="2/2/2021, 1:12:08 PM">2021-02-02</time>发表</span><span class="level-item"><time dateTime="2023-07-24T02:38:27.993Z" title="7/24/2023, 10:38:27 AM">2023-07-24</time>更新</span><span class="level-item"><a class="link-muted" href="/categories/%E6%80%A7%E8%83%BD/">性能</a></span><span class="level-item">13 分钟读完 (大约2002个字)</span></div></div><h1 class="title is-3 is-size-4-mobile"><a class="link-muted" href="/2021/02/02/2021/SpringCloud%E7%B3%BB%E7%BB%9F%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/">SpringCloud系统性能优化</a></h1><div class="content"><h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><ul>
 <li>需要对系统进行流程性测试，查找系统瓶颈点所在，当大流量来临能有效应对。现将优化处理方法进行梳理总结，供大家参考学习</li>
 </ul>
 <h2 id="系统参数"><a href="#系统参数" class="headerlink" title="系统参数"></a>系统参数</h2><table>
@@ -113,9 +113,9 @@
 </ul>
 <h3 id="应用服务优化项"><a href="#应用服务优化项" class="headerlink" title="应用服务优化项"></a>应用服务优化项</h3><ol>
 <li><p><a href="">spring actuator至性能衰减</a></p>
-</li>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1. https://www.shuzhiduo.com/A/rV57PbN9dP/</span><br><span class="line">2. 由于actuator会注入很多*号的url。这时候程序使用PathVariable ，会造成很多次的无效匹配</span><br><span class="line">3. 解决：actuator声明一些需要使用的端点，不要使用*号进行</span><br></pre></td></tr></table></figure></li>
 <li><p><a href="">华为云redis查询QPS过低排查</a></p>
-</li>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">1. redis带宽不足</span><br><span class="line">2. 程序的并发高，同时用户存储了所有数据，占用大量带宽</span><br></pre></td></tr></table></figure></li>
 <li><p><a href="">spring mvc transactional导致性能瓶颈</a></p>
 </li>
 <li><p>应用服务tomcat连接数配置,此项不作说明，需要根据业务系统来定</p>
